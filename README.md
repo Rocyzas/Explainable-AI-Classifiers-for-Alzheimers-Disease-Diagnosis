@@ -8,3 +8,12 @@ This is because of 2 reasons.
 I should propose a better way of dealing with missing values.(and I will also need to think about how to deal with Neuro file.)
 MinMAxScaler increased the performance of SVM by 10%.
 
+Using median for NaN values replacement
+Fixed the training. Now using cross_val_predict, which for each element in the input returns the prediction, obtained for that element when it was in the test set(each elem was once in test set).
+Got confustion matrix.
+Accuracies now is between 80-88% for both linear and polynomial classifiers depending on cv.
+
+Decision Tree gives precision of 73% at best...
+
+Logistic regression with MinMAx scaler, lbfgs solver, cross validation,  and C=3 gives 87% accuracy.
+
