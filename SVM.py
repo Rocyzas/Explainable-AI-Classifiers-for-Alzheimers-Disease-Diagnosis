@@ -2,6 +2,7 @@ import time
 import numpy as np
 import statistics
 from joblib import dump, load
+import random
 # clf = load('filename.joblib')
 # dump(clf, 'filename.joblib')
 
@@ -13,60 +14,50 @@ from sklearn.model_selection import cross_val_score, cross_val_predict, ShuffleS
 from matplotlib import pyplot as plt
 
 from DataProcessing import *
+import lime
+from lime.lime_tabular import LimeTabularExplainer
 
 def main():
 
     # Getting XY for training and testint
     XY = getXY(True)
     # X_train, X_test, y_train, y_test = train_test_split(XY[0], XY[1], test_size=0.25)
+    X = XY[0]
+    y = XY[1]
 
     clf = SVC(C=1.0, kernel='linear')
-    y_pred = cross_val_predict(clf, XY[0], XY[1], cv=5)
-    matrix = confusion_matrix(XY[1], y_pred)
+    clf.fit(X, y)
+    y_pred = cross_val_predict(clf, X, y, cv=5)
+    matrix = confusion_matrix(y, y_pred)
+    print("Linear")
     print(matrix)
     print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
 
     clf1 = SVC(C=1.0, kernel='poly')
-    y_pred = cross_val_predict(clf1, XY[0], XY[1], cv=5)
-    matrix = confusion_matrix(XY[1], y_pred)
+    clf1.fit(X, y)
+    y_pred = cross_val_predict(clf1, X, y, cv=5)
+    matrix = confusion_matrix(y, y_pred)
+    print("\n POLY:")
     print(matrix)
     print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
 
-    # clf2 = SVC(C=1.0, kernel='sigmoid')
-    # clf2.fit(X_train, y_train.ravel())
-    # scores = cross_val_score(clf2, X_train, y_train, cv=5)
-    # arra2.append(100*statistics.mean(scores))
+    feature_names = XY[2].values
+
+    # print("START EXPLAINer")
+    # explainer = LimeTabularExplainer(X, mode="regression",
+    #                                             feature_names= feature_names)
+    # idx = random.randint(1, len(XY[1]))
+    # print("START EXPLAINation with idx: ", idx)
+    # print(X[idx])
     #
-    # clf3 = SVC(C=1.0, kernel='rbf')
-    # clf3.fit(X_train, y_train.ravel())
-    # scores = cross_val_score(clf3, X_train, y_train, cv=5)
-    # arra3.append(100*statistics.mean(scores))
-
-    # print("Lin Accuracy: ", 100*statistics.mean(scores))
-    # f_importances(clf.coef_, ['Gender', 'Age'])
-
-
-def mainlinreg():
-    from sklearn.linear_model import LinearRegression
-    XY = getXY(PATH_Demo)
-    X_train = XY[0]
-    X_test = XY[1]
-    y_train = XY[2]
-    y_test = XY[3]
-
-    reg = LinearRegression()
-    reg.fit(X_train, y_train)
-    print(reg.score(X_test, y_test))
-
-    plt.scatter(y_test, X_test,  color ='b')
-    plt.plot( y_test, X_test,color ='k')
-
-    plt.show()
-    # scores = cross_val_score(reg, X_test, y_test, cv=10)
-    # print("Lin Accuracy: ", 100*statistics.mean(scores))
+    # explanation = explainer.explain_instance(X[idx], clf1.predict, num_features=len(feature_names))
+    # from IPython.display import HTML
+    # html_data = explanation.as_html()
+    # HTML(data=html_data)
+    # print("no worries, this will be saved")
+    # explanation.save_to_file("SVM1classif_explanation.html")
 
 if __name__ == '__main__':
     start_time = time.time()
     main()
-    # mainlinreg();
     print("--- %.2f seconds ---" % (time.time() - start_time))

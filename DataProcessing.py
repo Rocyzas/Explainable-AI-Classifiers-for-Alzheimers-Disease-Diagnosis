@@ -46,6 +46,7 @@ def getXY(scale):
 
     merged = merged.drop(['ID','AD', 'MCI', 'Exclude'], axis=1)
 
+    columns = merged.columns
     # merged.sample(frac=1)
 
     X = merged.values
@@ -54,4 +55,4 @@ def getXY(scale):
     if scale:
         X=scaleData(X)
 
-    return X, Y
+    return X, Y, columns
