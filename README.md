@@ -13,7 +13,6 @@ Fixed the training. Now using cross_val_predict, which for each element in the i
 Got confustion matrix.
 Accuracies now is between 80-88% for both linear and polynomial classifiers depending on cv.
 
-Decision Tree gives precision of 73% at best...
+Gradient Boosted Decision Tree gives precision of 73% at best...
 
 Logistic regression with MinMAx scaler, lbfgs solver, cross validation,  and C=3 gives 87% accuracy.
-
