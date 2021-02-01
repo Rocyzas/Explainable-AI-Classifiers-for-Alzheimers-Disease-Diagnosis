@@ -51,7 +51,7 @@ def getXY(scale, classes):
         merged = merged[(merged['AD'] == 1) | (merged['MCI'] == 1)] # exclude HC
 
 
-    merged = merged.drop(['ID','AD', 'MCI', 'Exclude'], axis=1)
+    merged = merged.drop(['ID','AD', 'MCI', 'Exclude', 'CDR'], axis=1)
 
     columns = merged.columns
 

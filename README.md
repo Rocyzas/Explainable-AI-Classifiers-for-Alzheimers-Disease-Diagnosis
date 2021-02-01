@@ -19,3 +19,6 @@ Gradient Boosted Decision Tree gives precision of 73% at best...
 Logistic regression with MinMAx scaler, lbfgs solver, cross validation,  and C=3 gives 87% accuracy.
 
 GridSearchCV for DT
+Using BayesSearchCV for hyperparameters.
+Warning 'UserWarning: The objective has been evaluated at this point before' means that minimizer keeps suggesting points at which the objective has already been evaluated.
+Hence number of iterations should be smaller, or add additional parameters.
