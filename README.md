@@ -1,4 +1,5 @@
 # Explainable-AI-Classifiers-for-Alzheimers-Disease-Diagnosis
+python3 Model.py 'clasisfier' 'classification_method' '0/1(explainability)'
 
 What I did:
 Kernel function - linear and poly gives the best results - ~80% with all data, but even 99% without sMRI and ASL.
@@ -16,3 +17,5 @@ Accuracies now is between 80-88% for both linear and polynomial classifiers depe
 Gradient Boosted Decision Tree gives precision of 73% at best...
 
 Logistic regression with MinMAx scaler, lbfgs solver, cross validation,  and C=3 gives 87% accuracy.
+
+GridSearchCV for DT
