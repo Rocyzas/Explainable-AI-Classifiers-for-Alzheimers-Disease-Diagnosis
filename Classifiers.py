@@ -23,49 +23,57 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score, cross_val_predict, ShuffleSplit
 
-def DT(X, y):
+#For Hyper parameters selecion
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+from skopt import BayesSearchCV
+from skopt.space import Real, Categorical, Integer
 
-    HyperparametersSelection = False
+N_ITER = 15
+CV = 2
 
-    if HyperparametersSelection:
-        from sklearn.model_selection import GridSearchCV
-        from skopt import BayesSearchCV
-        from skopt.space import Real, Categorical, Integer
+repetativeScore = 0
 
-        param_grid = {
-        'n_estimators':[i for i in range(1, 100, 50)],
-        'learning_rate':[i/10000 for i in range(1, 1000, 250)],
-        'max_depth' : [1, 2],
-        'max_features':[1, 2]
-        }
+def DT(X, y, HyperparametersSelection):
+
+    def on_step(optim_result):
+        score = clf1.best_score_
+        print("best score: ", score*100)
+
+    if HyperparametersSelection==1:
 
         search_space = {
                 "max_depth": Integer(6, 20), # values of max_depth are integers from 6 to 20
                 "max_features": Categorical(['auto', 'sqrt','log2']),
-                "min_samples_leaf": Integer(2, 10),
-                "min_samples_split": Integer(2, 10),
+                "min_samples_leaf": Integer(1, 10),
+                "min_samples_split": Real(0.001, 1),
                 "n_estimators": Integer(100, 500),
                 'learning_rate':Real(0.00001, 1)
             }
 
-        clf = GradientBoostingClassifier(random_state=0)
-        # clf1 = GridSearchCV(clf1, param_grid = param_grid, cv=4, return_train_score = False)
-        clf1 = BayesSearchCV(clf, search_space, n_iter=15, cv=5,
+        clf1 = BayesSearchCV(GradientBoostingClassifier(random_state=0), search_space,
+                            n_iter=N_ITER, cv=CV,
                             scoring="accuracy",  return_train_score = False)
-        # for param in clf.get_params().keys():
-        #     print("nipples: ", param)
 
-        clf1.fit(X, y)
+        clf1.fit(X, y, callback = on_step)
 
-        # print(clf.cv_results_)
-        # df = pd.DataFrame(clf.cv_results_)
-        # df.to_csv('DTHyperParameterTuning', index=False)
-        print("score: ",clf1.best_score_)
-        print("params: ",clf1.best_params_)
+        # print("Best Score: ",clf1.best_score_*100 , "%")
+        # print("params: ",clf1.best_params_)
+        clf = GradientBoostingClassifier(**clf1.best_params_, random_state=0)
+        clf.fit(X, y)
 
+        y_pred = cross_val_predict(clf, X, y, cv=4)
+        matrix = confusion_matrix(y, y_pred)
+        print("====DT=====")
+        print(matrix)
+
+        value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
+        print(value, " ", clf1.best_score_*100)
+
+        return clf
 
 
     else:
+
         # clf = GradientBoostingClassifier(n_estimators = 51, learning_rate = 0.0751, max_depth = 1, max_features = 1, random_state=0)
         clf = GradientBoostingClassifier(n_estimators = 226, max_depth = 6, learning_rate=0.7397015781008435, min_samples_split=10,
                                         min_samples_leaf = 6, max_features = 'auto', random_state=0)
@@ -80,35 +88,99 @@ def DT(X, y):
         value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
         print(value)
 
-    return clf
+        return clf
 
-def LR(X, y):
-    clf = LogisticRegression(solver='lbfgs', C=3, random_state=0)
-    clf.fit(X, y)
+def LR(X, y, HyperparametersSelection):
 
-    y_pred = cross_val_predict(clf, X, y, cv=5)
-    matrix = confusion_matrix(y, y_pred)
-    print("===RESULT===")
-    print(matrix)
-    print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
+    def on_step(optim_result):
+        score = clf1.best_score_
+        print("best score: ", score*100)
 
-    return clf
+    if HyperparametersSelection:
+        search_space = {
+                "penalty":Categorical(['l1', 'l2']),
+                "solver":Categorical(['liblinear']),
+                "tol":Real(1e-5, 1e-1),
+                "C":Real(0.1, 10)
+            }
 
-def SVM(X, y):
-    clf = SVC(C=1.0, kernel='linear')
-    clf.fit(X, y)
-    y_pred = cross_val_predict(clf, X, y, cv=5)
-    matrix = confusion_matrix(y, y_pred)
-    print("Linear")
-    print(matrix)
-    print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
+        clf1 = BayesSearchCV(LogisticRegression(random_state=0), search_space, n_iter=N_ITER, cv=CV,
+                            scoring="accuracy",  return_train_score = False)
 
-    clf1 = SVC(C=1.0, kernel='poly')
-    clf1.fit(X, y)
-    y_pred = cross_val_predict(clf1, X, y, cv=5)
-    matrix = confusion_matrix(y, y_pred)
-    print("\n POLY:")
-    print(matrix)
-    print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
+        clf1.fit(X, y, callback=on_step)
 
-    return clf #olny the first one
+        # print("Best Score: ",clf1.best_score_*100 , "%")
+        # print("params: ",clf1.best_params_)
+        clf = LogisticRegression(**clf1.best_params_, random_state=0)
+        clf.fit(X, y)
+
+        y_pred = cross_val_predict(clf, X, y, cv=4)
+        matrix = confusion_matrix(y, y_pred)
+        print("====LR=====")
+
+        print(matrix)
+
+        value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
+        print(value, " ", clf1.best_score_*100)
+
+        return clf
+
+    else:
+        clf = LogisticRegression(penalty='l2', solver='liblinear', C=7, tol=0.1, random_state=0)
+        clf.fit(X, y)
+
+        y_pred = cross_val_predict(clf, X, y, cv=5)
+        matrix = confusion_matrix(y, y_pred)
+        print("===RESULT===")
+        print(matrix)
+        print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
+
+        return clf
+
+def SVM(X, y, HyperparametersSelection):
+
+    def on_step(optim_result):
+        score = clf1.best_score_
+        print("best score: ", score*100)
+
+    if HyperparametersSelection:
+        search_space = {
+                # "penalty":Categorical(['l1', 'l2', 'elasticnet', 'none']),
+                "kernel":Categorical(['linear', 'poly', 'rbf', 'sigmoid']),
+                "degree":Integer(0, 10), #for poly only, ignored by other kernels
+                "gamma":Real(1e-5, 1e-1),
+                "coef0":Real(0, 1),
+                "tol":Real(1e-5, 1e-1),
+                "C":Real(1e-4, 1e+4)
+            }
+
+        clf1 = BayesSearchCV(SVC(random_state=0), search_space, n_iter=N_ITER, cv=CV,
+                            scoring="accuracy",  return_train_score = False)
+
+        clf1.fit(X, y, callback=on_step)
+
+        # print("Best Score: ",clf1.best_score_*100 , "%")
+        # print("params: ",clf1.best_params_)
+        clf = SVC(**clf1.best_params_, random_state=0)
+        clf.fit(X, y)
+
+        y_pred = cross_val_predict(clf, X, y, cv=4)
+        matrix = confusion_matrix(y, y_pred)
+        print("====SVM=====")
+
+        print(matrix)
+
+        value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
+        print(value, " ", clf1.best_score_*100)
+
+        return clf
+    else:
+        clf = SVC(C=2.46, degree=2, gamma='scale', kernel='poly', tol=0.0248)
+        clf.fit(X, y)
+        y_pred = cross_val_predict(clf, X, y, cv=5)
+        matrix = confusion_matrix(y, y_pred)
+        print("Linear")
+        print(matrix)
+        print(100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix)))
+
+        return clf

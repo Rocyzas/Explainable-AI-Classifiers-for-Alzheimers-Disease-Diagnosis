@@ -14,8 +14,11 @@ PATH_MadeUp = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/MadeUp.csv"
 def clear_data(df):
     # remove na rows
 
-    df= df.replace(np.NaN, df.median())
+    df= df.replace(np.NaN, df.mean(numeric_only=True))
+    # df= df.replace(np.NaN, df.median())
+
     # df = df.fillna(method='ffill')
+
     # Remove rows with exclude =1
     # df.dropna(inplace=True)
     df = df[df['Exclude'] != 1]
@@ -39,6 +42,8 @@ def getXY(scale, classes):
     merged = pd.merge(merged, pd.read_csv(PATH_sMRI), how='inner', on=['ID', 'ID'])
 
     merged = clear_data(merged)
+    merged.to_csv("ParamsData.csv", sep=',')
+    merged = merged.sample(frac=1)
 
     AD = merged[['AD']].values
     MCI =  merged[['MCI']].values
