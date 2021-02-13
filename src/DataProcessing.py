@@ -1,16 +1,12 @@
 import os
 import pandas as pd
 import numpy as np
+import random
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
-PATH_sMRI = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/SheffieldProspective_sMRI.csv"
-PATH_ASL = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/SheffieldProspective_ASL.csv"
-PATH_Demo = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/SheffieldProspective_Demo.csv"
-PATH_Neuro = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/SheffieldProspective_Neuro.csv"
-PATH_MadeUp = os.getcwd() +  "/../VPHDARE_Alzheimers_Data/MadeUp.csv"
-
+from Params import *
 
 def clear_data(df):
     # remove NaN rows and Exclude rows
@@ -32,15 +28,14 @@ def scaleData(df):
     return newdf
 
 
-def getXY(scale, classes):
+def getXY(classes, fillData = pd.DataFrame()):
     merged = pd.read_csv(PATH_Demo)
+    # merged = pd.read_csv(os.getcwd() +  "/../DataFiles/A.csv")
     merged = pd.merge(merged, pd.read_csv(PATH_ASL), how='inner', on=['ID', 'ID'])
     merged = pd.merge(merged, pd.read_csv(PATH_Neuro), how='inner', on=['ID', 'ID'])
     merged = pd.merge(merged, pd.read_csv(PATH_sMRI), how='inner', on=['ID', 'ID'])
 
     merged = clear_data(merged)
-
-    merged = merged.sample(frac=1)
 
     AD = merged[['AD']].values
     MCI =  merged[['MCI']].values
@@ -49,20 +44,35 @@ def getXY(scale, classes):
         merged = merged[merged['MCI'] != 1] # exclude MCI 1
 
     elif classes == 'MCI_AD':
-        merged = merged[(merged['AD'] == 1) | (merged['MCI'] == 1)] # exclude HC
+        merged = merged[(merged['AD'] == 1) | merged['MCI'] == 1]
 
+    else:
+        print("Required format; HC_AD or MCI_AD")
+        exit()
 
     # merged = merged.drop(['ID','AD', 'MCI', 'Exclude'], axis=1)
-    merged = merged.drop(['ID', 'MCI', 'AD', 'Exclude', 'CDR'], axis=1)
+    merged = merged.drop(listFeaturesRemove, axis=1)
     columns = pd.DataFrame(columns = list(merged.columns))
 
-    columns.to_csv("Columns.csv", sep=',', index=False)
-    merged.to_csv("FeatureList.csv", sep=',')
+    if not fillData.empty:
+        # Fill in empty spaces with mean values from FULL dataset
+        fillData=fillData.fillna(merged.mean())
+    else:
+        # else, means no dataframe was given and hence a template has to be made
+        columns.to_csv(saveColTemplate, sep=',', index=False)
+        merged.to_csv(fulldata + classes + 'Data.csv', sep=',')
 
     X = merged.values
-    Y = np.asarray([int(not AD[i]) for i in range(len(merged))])
+    Y = np.asarray([int(AD[i]) for i in range(len(merged))])
 
-    if scale:
-        X=scaleData(X)
+    # do i need to always work with a same datatype?
 
-    return X, Y, columns
+    # Concatinate
+    X = np.append(X, fillData.to_numpy(), axis = 0)
+    X=scaleData(X)
+
+    # Split back / UNconcatinate
+    fillData = X[len(X)-len(fillData):]
+    X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
+
+    return X, Y, columns, fillData

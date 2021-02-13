@@ -9,17 +9,20 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 from DataProcessing import *
-from Classifiers import *
-
-def loadModel(name):
-    model = load('Models/' + name + '.joblib')
-    return model
-
+# from Params import *
+from LRclf import LR
+from SVMclf import SVM
+from DTclf import DT
 
 def main(argv):
 
     # Getting XY for training and testint !=DT since it does not require scaling
-    XY = getXY(argv[0]!='DT', argv[1])
+    # XY = getXY(argv[0]!='DT', argv[1])
+    XY = getXY(argv[1])
+
+    XYcombination = list(zip(XY[0], XY[1]))
+    random.shuffle(XYcombination)
+    XY[0], XY[1] = zip(*XYcombination)
 
     if argv[0]=='DT':
         model = DT(XY[0], XY[1], int(argv[2]))
@@ -31,6 +34,8 @@ def main(argv):
         model = LR(XY[0], XY[1], int(argv[2]))
 
     elif argv[0]=='best':
+        # Should select from the directory of ALL models
+        # but makes not sense if data is different.
         model = selectBestClassifier()
 
     else:
