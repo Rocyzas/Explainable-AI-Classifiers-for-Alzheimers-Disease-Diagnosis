@@ -22,3 +22,9 @@ GridSearchCV for DT
 Using BayesSearchCV for hyperparameters.
 Warning 'UserWarning: The objective has been evaluated at this point before' means that minimizer keeps suggesting points at which the objective has already been evaluated.
 Hence number of iterations should be smaller, or add additional parameters.
+
+There was a bug with suffle. I shuffled X and y separately, and hence labels were missmathced with the correct data row in X.
+BayesSearch gave predictions over 50%, because it selected HParams only for that specific data.
+
+Fixed Shuffle by zipping and unzipping values, fixed scaling for explainability by appending X wit filldata and then unconcatinating both.
+
