@@ -28,3 +28,5 @@ BayesSearch gave predictions over 50%, because it selected HParams only for that
 
 Fixed Shuffle by zipping and unzipping values, fixed scaling for explainability by appending X wit filldata and then unconcatinating both.
 
+Fixed the bug with empty fillData when training.
+

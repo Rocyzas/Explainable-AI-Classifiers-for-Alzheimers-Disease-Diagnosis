@@ -68,11 +68,17 @@ def getXY(classes, fillData = pd.DataFrame()):
     # do i need to always work with a same datatype?
 
     # Concatinate
-    X = np.append(X, fillData.to_numpy(), axis = 0)
+    print(X.shape)
+    print(fillData.shape)
+    X = np.append(X, fillData.to_numpy().reshape((fillData.shape[0], X.shape[1])), axis = 0)
+    print(X.shape)
     X=scaleData(X)
+    print(X.shape)
 
     # Split back / UNconcatinate
     fillData = X[len(X)-len(fillData):]
+    print("FD: ", fillData.shape)
     X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
+    print(X.shape)
 
     return X, Y, columns, fillData

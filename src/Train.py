@@ -22,16 +22,16 @@ def main(argv):
 
     XYcombination = list(zip(XY[0], XY[1]))
     random.shuffle(XYcombination)
-    XY[0], XY[1] = zip(*XYcombination)
+    X, y = zip(*XYcombination)
 
     if argv[0]=='DT':
-        model = DT(XY[0], XY[1], int(argv[2]))
+        model = DT(X, y, int(argv[2]))
 
     elif argv[0]=='SVM':
-        model = SVM(XY[0], XY[1], int(argv[2]))
+        model = SVM(X, y, int(argv[2]))
 
     elif argv[0]=='LR':
-        model = LR(XY[0], XY[1], int(argv[2]))
+        model = LR(X, y, int(argv[2]))
 
     elif argv[0]=='best':
         # Should select from the directory of ALL models

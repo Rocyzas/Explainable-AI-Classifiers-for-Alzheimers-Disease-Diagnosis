@@ -18,10 +18,14 @@ listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'CDR']
 
 
 # ============= Classifiers =============
-N_ITER = 5
+N_ITER = 15
 CV = 5
 modelsPath = '/home/rokas/Documents/Leeds/3Year1Term_Works/IndividualProject/Source/Models/'
 repetativeScore = 0
+
+
+# ============= Explainer ===============
+ExplainPath = os.getcwd() + "/../ExplainHTML/"
 
 def uniquify(path):
     filename, extension = os.path.splitext(path)

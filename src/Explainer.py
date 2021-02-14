@@ -5,11 +5,9 @@ from lime.lime_tabular import LimeTabularExplainer
 
 from DataProcessing import *
 from Params import *
-from LRclf import *
-from SVMclf import *
-from DTclf import *
-
-ExplainPath = "/home/rokas/Documents/Leeds/3Year1Term_Works/IndividualProject/Source/ExplainHTML/"
+from LRclf import LR
+from SVMclf import SVM
+from DTclf import DT
 
 def explain(rows, clf, name, classes):
 
@@ -48,7 +46,7 @@ def explain(rows, clf, name, classes):
     html_data = explanation.as_html()
     HTML(data=html_data)
     print("th is saved")
-    explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanationBYBYs.html"))
+    explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
 
 
 def explainELI5(clf):
