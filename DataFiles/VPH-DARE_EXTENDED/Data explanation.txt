@@ -1,0 +1,57 @@
+ID - Patient ID
+
+SH = Sheffield prospective cohort
+DARE = VPH-DARE@IT study
+G1 = Alzheimer's Disease case
+G2 = Normal control
+G3 = Mild cognitive impairment case
+
+---
+
+SheffieldProspective_Demo.csv - Demographic information about each patient
+
+MCI     = Is this a Mild cognitive impairment case?
+AD      = Is this an Alzheimer's Disease case?
+Gender  = 1 Female, 0 Male
+Age     = in years
+Exclude = If 1, this case has issues in brain imaging (do not use)
+Height  = in cm
+Weight  = in kg
+
+---
+
+SheffieldProspective_Neuro.csv - Neurocognitive test scores for each patient
+
+MMSE = Mini-Mental State Exam (most common test used to diagnose AD)
+
+- max 30 points
+- score of 22 points or fewer (adjusted by education) indicates memory concerns
+
+CDR = Clinical Dementia Rating (clinical evaluation of the level of dementia)
+
+- 0 = absent; 0.5 = questionable; 1= present, but mild; 2 = moderate; 3 = severe; 4 = profound; 5 = terminal
+
+---
+
+SheffieldProspective_sMRI.csv (MRI-derived volume of different brain regions)
+
+Alzheimer's disease causes neurodegeneration that can be observed as volume 
+loss in certain regions of the gray matter (but not in others). These regions
+were delineated from the MR images and the volumes of each region (144 in 
+total) are reported here.
+
+For explanation of what the regions are, consult an anatomical brain atlas.
+
+---
+
+SheffieldProspective_ASL.csv (MRI-derived mean perfusion values different brain regions)
+
+In early stages of Alzheimer's disease, variations of blood flow (perfusion)
+in the brain have been reported. Using a non-invase MR imaging modality called
+ASL (arterial spin labelling), the blood in different parts of the brain can
+be measured in ml/min/100g of tissue. 
+
+These regions were delineated from the MR images and the mean blood flow values
+in each region (141 in total) are reported here.
+
+For explanation of what the regions are, consult an anatomical brain atlas.

@@ -30,3 +30,8 @@ Fixed Shuffle by zipping and unzipping values, fixed scaling for explainability 
 
 Fixed the bug with empty fillData when training.
 
+Now it works when the data is not in order
+New datasets added, it also works with them.
+Explainability now accepts classification mode in all LR, SVM, DT.
+There was no need in scaling separately XY[3], since getXY scales it.
+Problems: Explainability does not work as intended(inacurate for SVM, LR, and does not make sensible explanation for all models)

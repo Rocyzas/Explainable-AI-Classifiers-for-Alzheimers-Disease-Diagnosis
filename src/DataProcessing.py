@@ -16,10 +16,12 @@ def clear_data(df):
     # Remove rows with exclude =1
     df = df[df['Exclude'] != 1]
 
+    df = df.dropna(axis=1, how='all')
+
+
     return df
 
 # def f_importances(coef, names)
-
 def scaleData(df):
     scaler = MinMaxScaler()
     scaler.fit(df)
@@ -37,20 +39,19 @@ def getXY(classes, fillData = pd.DataFrame()):
 
     merged = clear_data(merged)
 
-    AD = merged[['AD']].values
-    MCI =  merged[['MCI']].values
-
     if classes == 'HC_AD':
         merged = merged[merged['MCI'] != 1] # exclude MCI 1
+        AD = merged[['AD']].values
 
     elif classes == 'MCI_AD':
         merged = merged[(merged['AD'] == 1) | merged['MCI'] == 1]
+        MCI =  merged[['MCI']].values
+        AD = merged[['AD']].values
 
     else:
         print("Required format; HC_AD or MCI_AD")
         exit()
 
-    # merged = merged.drop(['ID','AD', 'MCI', 'Exclude'], axis=1)
     merged = merged.drop(listFeaturesRemove, axis=1)
     columns = pd.DataFrame(columns = list(merged.columns))
 
@@ -65,20 +66,12 @@ def getXY(classes, fillData = pd.DataFrame()):
     X = merged.values
     Y = np.asarray([int(AD[i]) for i in range(len(merged))])
 
-    # do i need to always work with a same datatype?
-
     # Concatinate
-    print(X.shape)
-    print(fillData.shape)
     X = np.append(X, fillData.to_numpy().reshape((fillData.shape[0], X.shape[1])), axis = 0)
-    print(X.shape)
     X=scaleData(X)
-    print(X.shape)
-
     # Split back / UNconcatinate
     fillData = X[len(X)-len(fillData):]
-    print("FD: ", fillData.shape)
     X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
-    print(X.shape)
+
 
     return X, Y, columns, fillData

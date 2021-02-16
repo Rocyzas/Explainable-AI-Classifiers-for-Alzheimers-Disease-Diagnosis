@@ -37089,28 +37089,28 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divPHIJ8QX4JNU8ZA9"></div>
+        <div class="lime top_div" id="top_div21A6G4ZEBNLV5IB"></div>
         
         <script>
-        var top_div = d3.select('#top_divPHIJ8QX4JNU8ZA9').classed('lime top_div', true);
+        var top_div = d3.select('#top_div21A6G4ZEBNLV5IB').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["HC", "AD"], [0.9989937800280833, 0.001006219971916766]);
+            var pp = new lime.PredictProba(pp_svg, ["HC", "AD"], [0.0015338018134071207, 0.9984661981865929]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["HC", "AD"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["CDRSB <= 0.00", 0.501221842480059], ["0.11 < ADAS13 <= 0.20", 0.12989836147200534], ["LeftCerebellumExterior > 0.66", 0.0593867054348335], ["Right Cortex > 0.76", 0.05727697687181877], ["RightCaudate <= 0.13", -0.04905100663705973], ["0.15 < RightLateralVentricle <= 0.24", -0.04563900480428845], ["RightHippocampus > 0.73", 0.04428010747581233], ["RightInfLatVentricle <= 0.09", 0.0421558676544812], ["0.51 < Age <= 0.62", 0.03743458494652307], ["LeftAmygdala > 0.60", -0.03528774557600719]], 0, exp_div);
+                exp.show([["0.03 < CDRSB <= 0.26", 0.4931259244606392], ["0.93 < MMSE <= 1.00", -0.10912789975899773], ["0.20 < ADAS13 <= 0.39", 0.043544440918255864], ["0.19 < LeftCaudate <= 0.25", 0.04101466024025982], ["Right Cortex <= 0.58", 0.031454849690236056], ["0.19 < LeftInflatVentricle <= 0.29", 0.029814247592740678], ["RightCerebellumWhiteMatter <= 0.20", 0.026806212080852806], ["Age > 0.62", -0.02610424511508151], ["RightAccumbensArea <= 0.40", -0.02515731439519159], ["0.14 < ADAS11 <= 0.27", 0.02132247437256238]], 1, exp_div);
                 
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["CDRSB <= 0.00", -0.5012218424800591], ["0.11 < ADAS13 <= 0.20", -0.12989836147200537], ["LeftCerebellumExterior > 0.66", -0.05938670543483347], ["Right Cortex > 0.76", -0.057276976871818784], ["RightCaudate <= 0.13", 0.04905100663705974], ["0.15 < RightLateralVentricle <= 0.24", 0.04563900480428845], ["RightHippocampus > 0.73", -0.04428010747581233], ["RightInfLatVentricle <= 0.09", -0.0421558676544812], ["0.51 < Age <= 0.62", -0.03743458494652307], ["LeftAmygdala > 0.60", 0.03528774557600719]], 1, exp_div);
+                exp.show([["0.03 < CDRSB <= 0.26", -0.4931259244606392], ["0.93 < MMSE <= 1.00", 0.10912789975899771], ["0.20 < ADAS13 <= 0.39", -0.04354444091825587], ["0.19 < LeftCaudate <= 0.25", -0.04101466024025983], ["Right Cortex <= 0.58", -0.031454849690236035], ["0.19 < LeftInflatVentricle <= 0.29", -0.029814247592740702], ["RightCerebellumWhiteMatter <= 0.20", -0.026806212080852796], ["Age > 0.62", 0.026104245115081505], ["RightAccumbensArea <= 0.40", 0.025157314395191598], ["0.14 < ADAS11 <= 0.27", -0.021322474372562388]], 0, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["CDRSB", "0.00", 0.501221842480059], ["ADAS13", "0.13", 0.12989836147200534], ["LeftCerebellumExterior", "0.81", 0.0593867054348335], ["Right Cortex", "0.76", 0.05727697687181877], ["RightCaudate", "0.10", -0.04905100663705973], ["RightLateralVentricle", "0.16", -0.04563900480428845], ["RightHippocampus", "0.81", 0.04428010747581233], ["RightInfLatVentricle", "0.07", 0.0421558676544812], ["Age", "0.59", 0.03743458494652307], ["LeftAmygdala", "0.61", -0.03528774557600719]], 0, raw_div);
+            exp.show_raw_tabular([["CDRSB", "0.09", 0.4931259244606392], ["MMSE", "0.96", -0.10912789975899773], ["ADAS13", "0.27", 0.043544440918255864], ["LeftCaudate", "0.22", 0.04101466024025982], ["Right Cortex", "0.54", 0.031454849690236056], ["LeftInflatVentricle", "0.26", 0.029814247592740678], ["RightCerebellumWhiteMatter", "0.20", 0.026806212080852806], ["Age", "0.73", -0.02610424511508151], ["RightAccumbensArea", "0.35", -0.02515731439519159], ["ADAS11", "0.15", 0.02132247437256238]], 1, raw_div);
         
         </script>
         </body></html>

@@ -37089,25 +37089,28 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divRV5HYYGY3YO6G0C"></div>
+        <div class="lime top_div" id="top_divMGBNEMQG158AI59"></div>
         
         <script>
-        var top_div = d3.select('#top_divRV5HYYGY3YO6G0C').classed('lime top_div', true);
+        var top_div = d3.select('#top_divMGBNEMQG158AI59').classed('lime top_div', true);
         
-        
-                    var pp_div = top_div.append('div')
-                                        .classed('lime predicted_value', true);
-                    var pp_svg = pp_div.append('svg').style('width', '100%');
-                    var pp = new lime.PredictedValue(pp_svg, 0.0, 0.0, 1.0);
-                    
-        var exp_div;
-            var exp = new lime.Explanation(["negative", "positive"]);
-        
-            exp_div = top_div.append('div').classed('lime explanation', true);
-            exp.show([["MMSE <= 0.44", 0.33368690903513376], ["Gender <= 0.00", 0.1446046384827451], [" Right PHG parahippocampal gyrus <= 0.23", -0.06951234692672725], [" Left Ent entorhinal area <= 0.21", 0.06944557229543763], [" Right Thalamus Proper <= 0.16", 0.0689108302008286], [" Right OrIFG orbital part of the inferior frontal gyrus <= 0.16", -0.0682200152928026], [" Right FO frontal operculum <= 0.22", -0.052483511620936577], [" Optic Chiasm <= 0.12", 0.042746069788665804], [" Right OpIFG opercular part of the inferior frontal gyrus <= 0.20", -0.03985746748936827], [" Right Calc calcarine cortex <= 0.20", -0.03313063327609653]], 1, exp_div);
+            var pp_div = top_div.append('div')
+                                .classed('lime predict_proba', true);
+            var pp_svg = pp_div.append('svg').style('width', '100%');
+            var pp = new lime.PredictProba(pp_svg, ["HC", "AD"], [0.09920653267395488, 0.900793467326045]);
             
+        
+        var exp_div;
+            var exp = new lime.Explanation(["HC", "AD"]);
+        
+                exp_div = top_div.append('div').classed('lime explanation', true);
+                exp.show([["0.03 < CDRSB <= 0.26", 0.24566940183919445], ["0.93 < MMSE <= 1.00", -0.20697964406596417], ["RightLateralVentricle > 0.34", -0.10710394037619045], ["3rdVentricle > 0.46", 0.10352393477958183], ["Age > 0.62", -0.09769231521755191], ["RightHippocampus <= 0.56", 0.08748205311541431], ["Left Cortex <= 0.56", -0.0803970577095501], ["LeftCerebellumExterior <= 0.46", 0.06925535279210111], ["LeftLateralVentricle > 0.32", 0.06618292218203127], ["RightInfLatVentricle > 0.24", 0.05860630914741104]], 1, exp_div);
+                
+                exp_div = top_div.append('div').classed('lime explanation', true);
+                exp.show([["0.03 < CDRSB <= 0.26", -0.24566940183919445], ["0.93 < MMSE <= 1.00", 0.20697964406596422], ["RightLateralVentricle > 0.34", 0.10710394037619048], ["3rdVentricle > 0.46", -0.10352393477958184], ["Age > 0.62", 0.09769231521755194], ["RightHippocampus <= 0.56", -0.08748205311541433], ["Left Cortex <= 0.56", 0.08039705770955008], ["LeftCerebellumExterior <= 0.46", -0.06925535279210111], ["LeftLateralVentricle > 0.32", -0.0661829221820313], ["RightInfLatVentricle > 0.24", -0.05860630914741103]], 0, exp_div);
+                
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["MMSE", "0.00", 0.33368690903513376], ["Gender", "0.00", 0.1446046384827451], [" Right PHG parahippocampal gyrus", "0.00", -0.06951234692672725], [" Left Ent entorhinal area", "0.00", 0.06944557229543763], [" Right Thalamus Proper", "0.00", 0.0689108302008286], [" Right OrIFG orbital part of the inferior frontal gyrus", "0.00", -0.0682200152928026], [" Right FO frontal operculum", "0.00", -0.052483511620936577], [" Optic Chiasm", "0.00", 0.042746069788665804], [" Right OpIFG opercular part of the inferior frontal gyrus", "0.00", -0.03985746748936827], [" Right Calc calcarine cortex", "0.00", -0.03313063327609653]], 1, raw_div);
+            exp.show_raw_tabular([["CDRSB", "0.09", 0.24566940183919445], ["MMSE", "0.96", -0.20697964406596417], ["RightLateralVentricle", "0.42", -0.10710394037619045], ["3rdVentricle", "0.54", 0.10352393477958183], ["Age", "0.73", -0.09769231521755191], ["RightHippocampus", "0.51", 0.08748205311541431], ["Left Cortex", "0.56", -0.0803970577095501], ["LeftCerebellumExterior", "0.42", 0.06925535279210111], ["LeftLateralVentricle", "0.40", 0.06618292218203127], ["RightInfLatVentricle", "0.41", 0.05860630914741104]], 1, raw_div);
         
         </script>
         </body></html>

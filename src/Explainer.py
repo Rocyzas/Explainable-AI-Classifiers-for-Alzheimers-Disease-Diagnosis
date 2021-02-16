@@ -18,16 +18,12 @@ def explain(rows, clf, name, classes):
 
     columns = list(rows.head(0))
 
-    # dbr returning reiks xy[3] - filledrows rows
-    # rows = rows.drop(rows.columns[[0]], axis=1)
-    # print(type(rows))
-    print(type(rows))
-    # print("mano penis: ", type(X))
-    rows = scaleData(XY[3])
-    print(type(rows))
-    yn = clf.predict(rows)
-    # print(clf)
+    # rows = scaleData(XY[3])
+    rows = XY[3]
 
+    predict_logreg = lambda x: clf.predict_proba(x).astype(float)
+
+    yn = clf.predict(rows)
 
     print("PREDICTION: ", yn)
 
@@ -35,19 +31,18 @@ def explain(rows, clf, name, classes):
     class2 = str(classes).partition('_')[2]
     class_names = [str(classes).partition('_')[0], str(classes).partition('_')[2]]
 
-    explainer = LimeTabularExplainer(X, mode = 'regression', training_labels=y, feature_selection= 'auto',
+    explainer = LimeTabularExplainer(X, mode = 'classification', training_labels=y, feature_selection= 'auto',
                                                class_names=class_names, feature_names = columns,
                                                    kernel_width=None,discretize_continuous=True)
 
-    print("START EXPLAINATION")
+    print("STARTING EXPLAINATION")
 
-    # print("nipas ",rows.iloc[0].to_numpy())
-    explanation = explainer.explain_instance(rows[0], clf.predict, top_labels=10)
-    html_data = explanation.as_html()
-    HTML(data=html_data)
-    print("th is saved")
-    explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
-
+    for i in range(len(rows)):
+        explanation = explainer.explain_instance(rows[i], clf.predict_proba, top_labels=10)
+        html_data = explanation.as_html()
+        HTML(data=html_data)
+        # print(i, "th is saved")
+        explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
 
 def explainELI5(clf):
     import eli5

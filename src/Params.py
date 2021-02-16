@@ -4,28 +4,42 @@ import os
 
 
 # ========== Data Processing ============
-PATH_sMRI = os.getcwd() +  "/../DataFiles/SheffieldProspective_sMRI.csv"
-PATH_ASL = os.getcwd() +  "/../DataFiles/SheffieldProspective_ASL.csv"
-PATH_Demo = os.getcwd() +  "/../DataFiles/SheffieldProspective_Demo.csv"
-PATH_Neuro = os.getcwd() +  "/../DataFiles/SheffieldProspective_Neuro.csv"
+# Sheffiled data sets
+# PATH_sMRI = os.getcwd() +  "/../DataFiles/SheffieldProspective_sMRI.csv"
+# PATH_ASL = os.getcwd() +  "/../DataFiles/SheffieldProspective_ASL.csv"
+# PATH_Demo = os.getcwd() +  "/../DataFiles/SheffieldProspective_Demo.csv"
+# PATH_Neuro = os.getcwd() +  "/../DataFiles/SheffieldProspective_Neuro.csv"
+#
+# ADNI data sets
+PATH_sMRI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_sMRI.csv"
+PATH_ASL = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_ASL.csv"
+PATH_Demo = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Demo.csv"
+PATH_Neuro = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Neuro.csv"
+
+
+# ADNI reduced data sets
+# PATH_sMRI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_sMRI.csv"
+# PATH_ASL = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_ASL.csv"
+# PATH_Demo = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_Demo.csv"
+# PATH_Neuro = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_Neuro.csv"
+
+
 
 saveColTemplate = "../DataFiles/Columns.csv"
 fulldata = "../DataFiles/"
 # List the features that should be removed
-# listFeaturesRemove = ['ID', 'MCI', 'AD']
-listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'CDR']
+listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude']
+# listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'CDR']
 
 
 
 # ============= Classifiers =============
-N_ITER = 15
+N_ITER = 5
 CV = 5
-modelsPath = '/home/rokas/Documents/Leeds/3Year1Term_Works/IndividualProject/Source/Models/'
+modelsPath = '../Models/'
 repetativeScore = 0
 
-
-# ============= Explainer ===============
-ExplainPath = os.getcwd() + "/../ExplainHTML/"
+ExplainPath = '../ExplainHTML/'
 
 def uniquify(path):
     filename, extension = os.path.splitext(path)
