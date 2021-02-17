@@ -20,8 +20,7 @@ def explain(rows, clf, name, classes):
 
     # rows = scaleData(XY[3])
     rows = XY[3]
-
-    predict_logreg = lambda x: clf.predict_proba(x).astype(float)
+    rows= X
 
     yn = clf.predict(rows)
 
@@ -33,16 +32,17 @@ def explain(rows, clf, name, classes):
 
     explainer = LimeTabularExplainer(X, mode = 'classification', training_labels=y, feature_selection= 'auto',
                                                class_names=class_names, feature_names = columns,
-                                                   kernel_width=None,discretize_continuous=True)
+                                                   discretize_continuous=False,
+                                                   verbose=False)
 
     print("STARTING EXPLAINATION")
 
-    for i in range(len(rows)):
-        explanation = explainer.explain_instance(rows[i], clf.predict_proba, top_labels=10)
-        html_data = explanation.as_html()
-        HTML(data=html_data)
-        # print(i, "th is saved")
-        explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
+    # for i in range(1,2,1):
+    explanation = explainer.explain_instance(rows[1], clf.predict_proba, top_labels=1, num_features=5)
+    html_data = explanation.as_html()
+    HTML(data=html_data)
+    # print(i, "th is saved")
+    explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
 
 def explainELI5(clf):
     import eli5

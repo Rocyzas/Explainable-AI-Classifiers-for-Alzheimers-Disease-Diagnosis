@@ -17,17 +17,24 @@ def clear_data(df):
     df = df[df['Exclude'] != 1]
 
     df = df.dropna(axis=1, how='all')
-
+    df = df[df['ID'].str.contains("bl")]
 
     return df
 
 # def f_importances(coef, names)
-def scaleData(df):
+def scaleData(df, inverse = False):
     scaler = MinMaxScaler()
     scaler.fit(df)
-    newdf = scaler.transform(df)
 
-    return newdf
+    if not inverse:
+        df = scaler.transform(df)
+    elif inverse:
+        print("PATEKTIMMASASAS")
+        print(df)
+        df = scaler.inverse_transform(df)
+        print("ir tas::::",df)
+
+    return df
 
 
 def getXY(classes, fillData = pd.DataFrame()):
@@ -72,6 +79,5 @@ def getXY(classes, fillData = pd.DataFrame()):
     # Split back / UNconcatinate
     fillData = X[len(X)-len(fillData):]
     X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
-
 
     return X, Y, columns, fillData

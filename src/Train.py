@@ -24,26 +24,32 @@ def main(argv):
     random.shuffle(XYcombination)
     X, y = zip(*XYcombination)
 
-    if argv[0]=='DT':
-        model = DT(X, y, int(argv[2]))
+    models = []
 
-    elif argv[0]=='SVM':
-        model = SVM(X, y, int(argv[2]))
+    if argv[0]=='DT' or argv[0]=='ALL':
+        models.append(DT(X, y, int(argv[2])))
 
-    elif argv[0]=='LR':
-        model = LR(X, y, int(argv[2]))
+    if argv[0]=='SVM' or argv[0]=='ALL':
+        models.append(SVM(X, y, int(argv[2])))
 
-    elif argv[0]=='best':
-        # Should select from the directory of ALL models
-        # but makes not sense if data is different.
-        model = selectBestClassifier()
+    if argv[0]=='LR' or argv[0]=='ALL':
+        models.append(LR(X, y, int(argv[2])))
+    #
+    # elif argv[0]=='all':
+    #     models.append(DT(X, y, int(argv[2])))
+    #     models.append(SVM(X, y, int(argv[2])))
+    #     models.append(LR(X, y, int(argv[2])))
+    #     # Should select from the directory of ALL models
+    #     # but makes not sense if data is different.
+    #     # model = selectBestClassifier()
 
     else:
         exit(0)
 
     if argv[3]=='1':
         # clf, clfName, classes
-        saveModel(model, argv[0], argv[1])
+        for model in models:
+            saveModel(model, argv[0], argv[1])
 
 if __name__ == '__main__':
     start_time = time.time()
