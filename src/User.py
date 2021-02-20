@@ -9,20 +9,30 @@ from DTclf import *
 
 from Explainer import *
 
+classifiersList = ['SVM', 'LR', 'DT']
+classesList = ['HC_AD', 'MCI_AD']
+
 def main(argv):
-    # model = loadModel(argv[0]+"-"+argv[1])
+    # no need to load a model in userpy. it should be in explainer.
+
 
     predRows = pd.read_csv(argv[2])
 
-    # explain(predRows, model, argv[0], argv[1])
-    # explain(predRows, loadModel("LR-HC_AD"), "LR", "HC_AD")
-    explain(predRows, loadModel("LR-MCI_AD"), "LR", "MCI_AD")
+    if argv[0]=='ALL' and argv[1]=='ALL':
+        for model in classifiersList:
+            for cl in classifiersList:
+                explain(predRows, model, cl)
 
-    # explain(predRows, loadModel("DT-HC_AD"), "DT", "HC_AD")
-    # explain(predRows, loadModel("DT-MCI_AD"), "DT", "MCI_AD")
+    elif argv[1]=='ALL':
+        for cl in classesList:
+            explain(predRows, argv[0], cl)
 
-    # explain(predRows, loadModel("SVM-HC_AD"), "SVM", "HC_AD")
-    # explain(predRows, loadModel("SVM-MCI_AD"), "SVM", "MCI_AD")
+    elif argv[0]=='ALL':
+        for model in classifiersList:
+            explain(predRows, model, argv[1])
+    else:
+        explain(predRows, argv[0], argv[1])
+
 
 if __name__ == '__main__':
     start_time = time.time()

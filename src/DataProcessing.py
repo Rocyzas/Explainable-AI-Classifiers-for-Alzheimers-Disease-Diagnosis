@@ -8,6 +8,16 @@ from sklearn.preprocessing import StandardScaler
 
 from Params import *
 
+def shuffleZipData(X, y=[]):
+
+    combination = list(zip(X, y))
+    random.shuffle(combination)
+    X, y = zip(*combination)
+    X = np.asarray(X)
+    y = np.asarray(y)
+
+    return X, y
+
 def clear_data(df):
     # remove NaN rows and Exclude rows
     # df = df.replace(np.NaN, df.mean(numeric_only=True))
@@ -36,8 +46,8 @@ def scaleData(df, inverse = False):
 
     return df
 
+def getDf(value = True):
 
-def getXY(classes, fillData = pd.DataFrame()):
     merged = pd.read_csv(PATH_Demo)
     # merged = pd.read_csv(os.getcwd() +  "/../DataFiles/A.csv")
     merged = pd.merge(merged, pd.read_csv(PATH_ASL), how='inner', on=['ID', 'ID'])
@@ -46,6 +56,16 @@ def getXY(classes, fillData = pd.DataFrame()):
 
     merged = clear_data(merged)
 
+    if value:
+        merged.to_csv(fulldata + 'FullData.csv', sep=',')
+
+    return merged
+
+
+def getXY(merged, classes, fillData = pd.DataFrame()):
+
+
+    # print("Got class: ", classes)
     if classes == 'HC_AD':
         merged = merged[merged['MCI'] != 1] # exclude MCI 1
         AD = merged[['AD']].values
@@ -56,7 +76,7 @@ def getXY(classes, fillData = pd.DataFrame()):
         AD = merged[['AD']].values
 
     else:
-        print("Required format; HC_AD or MCI_AD")
+        print("Required format: HC_AD or MCI_AD")
         exit()
 
     merged = merged.drop(listFeaturesRemove, axis=1)
@@ -68,7 +88,7 @@ def getXY(classes, fillData = pd.DataFrame()):
     else:
         # else, means no dataframe was given and hence a template has to be made
         columns.to_csv(saveColTemplate, sep=',', index=False)
-        merged.to_csv(fulldata + classes + 'Data.csv', sep=',')
+        merged.to_csv(fulldata + classes + 'DataUsed.csv', sep=',')
 
     X = merged.values
     Y = np.asarray([int(AD[i]) for i in range(len(merged))])

@@ -9,18 +9,20 @@ from LRclf import LR
 from SVMclf import SVM
 from DTclf import DT
 
-def explain(rows, clf, name, classes):
+def explain(rows, name, classes):
 
-    # for explainer
-    XY = getXY(classes, rows)
-    X = XY[0]
-    y = XY[1]
+    clf = loadModel(name+"-"+classes)
+
+    # get dataframe of all the data for explainer
+    df = getDf(False)
+
+    XY = getXY(df, classes, rows)
+    X, y = shuffleZipData(XY[0], XY[1])
 
     columns = list(rows.head(0))
 
     # rows = scaleData(XY[3])
     rows = XY[3]
-    rows= X
 
     yn = clf.predict(rows)
 
@@ -32,16 +34,15 @@ def explain(rows, clf, name, classes):
 
     explainer = LimeTabularExplainer(X, mode = 'classification', training_labels=y, feature_selection= 'auto',
                                                class_names=class_names, feature_names = columns,
-                                                   discretize_continuous=False,
-                                                   verbose=False)
+                                                   discretize_continuous=False)
 
     print("STARTING EXPLAINATION")
 
     # for i in range(1,2,1):
-    explanation = explainer.explain_instance(rows[1], clf.predict_proba, top_labels=1, num_features=5)
+    explanation = explainer.explain_instance(rows[0], clf.predict_proba, top_labels=1, num_features=5)
     html_data = explanation.as_html()
     HTML(data=html_data)
-    # print(i, "th is saved")
+    # print(i, " is saved")
     explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
 
 def explainELI5(clf):

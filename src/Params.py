@@ -3,6 +3,8 @@ import os
 
 
 
+visiskaiGlobalus = 0
+
 # ========== Data Processing ============
 # Sheffiled data sets
 # PATH_sMRI = os.getcwd() +  "/../DataFiles/SheffieldProspective_sMRI.csv"
@@ -15,14 +17,6 @@ PATH_sMRI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_sMRI.csv"
 PATH_ASL = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_ASL.csv"
 PATH_Demo = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Demo.csv"
 PATH_Neuro = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Neuro.csv"
-
-
-# ADNI reduced data sets
-# PATH_sMRI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_sMRI.csv"
-# PATH_ASL = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_ASL.csv"
-# PATH_Demo = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_Demo.csv"
-# PATH_Neuro = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/redADNI_Neuro.csv"
-
 
 
 saveColTemplate = "../DataFiles/Columns.csv"

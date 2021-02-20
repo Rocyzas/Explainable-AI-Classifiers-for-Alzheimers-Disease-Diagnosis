@@ -16,40 +16,43 @@ from DTclf import DT
 
 def main(argv):
 
-    # Getting XY for training and testint !=DT since it does not require scaling
-    # XY = getXY(argv[0]!='DT', argv[1])
-    XY = getXY(argv[1])
+    # Loading data for any scenario
+    df = getDf()
 
-    XYcombination = list(zip(XY[0], XY[1]))
-    random.shuffle(XYcombination)
-    X, y = zip(*XYcombination)
-
-    models = []
-
-    if argv[0]=='DT' or argv[0]=='ALL':
-        models.append(DT(X, y, int(argv[2])))
-
-    if argv[0]=='SVM' or argv[0]=='ALL':
-        models.append(SVM(X, y, int(argv[2])))
-
-    if argv[0]=='LR' or argv[0]=='ALL':
-        models.append(LR(X, y, int(argv[2])))
-    #
-    # elif argv[0]=='all':
-    #     models.append(DT(X, y, int(argv[2])))
-    #     models.append(SVM(X, y, int(argv[2])))
-    #     models.append(LR(X, y, int(argv[2])))
-    #     # Should select from the directory of ALL models
-    #     # but makes not sense if data is different.
-    #     # model = selectBestClassifier()
-
+    if argv[1]=='ALL':
+        classesList = ['HC_AD', 'MCI_AD']
     else:
-        exit(0)
+        classesList = [argv[1]]
 
-    if argv[3]=='1':
-        # clf, clfName, classes
-        for model in models:
-            saveModel(model, argv[0], argv[1])
+
+    for classificationType in classesList:
+        XY = getXY(df, classificationType)
+
+        X, y = shuffleZipData(XY[0], XY[1])
+
+
+        models = []
+        names = []
+
+        if argv[0]=='DT' or argv[0]=='ALL':
+            names.append("DT")
+            models.append(DT(X, y, int(argv[2])))
+
+        if argv[0]=='SVM' or argv[0]=='ALL':
+            names.append("SVM")
+            models.append(SVM(X, y, int(argv[2])))
+
+        if argv[0]=='LR' or argv[0]=='ALL':
+            names.append("LR")
+            models.append(LR(X, y, int(argv[2])))
+
+        elif argv[0]!='LR' and argv[0]!='DT' and argv[0]!='SVM' and argv[0]!='ALL':
+            exit(0)
+
+        if argv[3]=='1':
+            # clf, clfName, classes
+            for name, model in zip(names, models):
+                saveModel(model, name, classificationType)
 
 if __name__ == '__main__':
     start_time = time.time()
