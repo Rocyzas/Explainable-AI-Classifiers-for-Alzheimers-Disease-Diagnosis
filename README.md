@@ -35,3 +35,8 @@ New datasets added, it also works with them.
 Explainability now accepts classification mode in all LR, SVM, DT.
 There was no need in scaling separately XY[3], since getXY scales it.
 Problems: Explainability does not work as intended(inacurate for SVM, LR, and does not make sensible explanation for all models)
+
+TODO: various files are being saved multiple times. So when options in MCI/HC is ALL, it should save a file (example 'Columns.csv') once.
+Made ALL variants in Exaplainer, but they arent tested yet.
+
+Shuffle fucntion works on Explain and Train, The data file is saved once.
