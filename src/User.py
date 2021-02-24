@@ -20,7 +20,7 @@ def main(argv):
 
     if argv[0]=='ALL' and argv[1]=='ALL':
         for model in classifiersList:
-            for cl in classifiersList:
+            for cl in classesList:
                 explain(predRows, model, cl)
 
     elif argv[1]=='ALL':

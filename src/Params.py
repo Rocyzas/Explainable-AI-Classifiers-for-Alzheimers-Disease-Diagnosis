@@ -1,6 +1,6 @@
 from joblib import load, dump
 import os
-
+import csv
 
 
 visiskaiGlobalus = 0
@@ -33,6 +33,8 @@ CV = 5
 modelsPath = '../Models/'
 repetativeScore = 0
 
+modelsLog = "../Models/log.csv"
+
 ExplainPath = '../ExplainHTML/'
 
 def uniquify(path):
@@ -53,3 +55,20 @@ def saveModel(model, modelName, classes):
     # clf = load('Models/' + filename.joblib')
     name = modelName+"-"+classes
     dump(model, uniquify(modelsPath + name +'.joblib'))
+
+def logClassifier(clf, classes, score, confMatrix,  parameters):
+
+    if os.path.exists(modelsLog)!=True:
+        with open(modelsLog, mode='w') as f:
+            writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            writer.writerow(["Classifier", "Classification Between", "Best Accuracy", "Confusion Matrix", "Parameters"])
+            f.close()
+
+    with open(modelsLog, mode='a+') as file_object:
+        writer = csv.writer(file_object, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        writer.writerow([clf, classes, score, confMatrix,  parameters])
+
+    file_object.close()
+
+    return

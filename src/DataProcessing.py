@@ -20,8 +20,8 @@ def shuffleZipData(X, y=[]):
 
 def clear_data(df):
     # remove NaN rows and Exclude rows
-    # df = df.replace(np.NaN, df.mean(numeric_only=True))
-    df= df.replace(np.NaN, df.median())
+    df = df.replace(np.NaN, df.mean(numeric_only=True))
+    # df= df.replace(np.NaN, df.median())
 
     # Remove rows with exclude =1
     df = df[df['Exclude'] != 1]
@@ -39,10 +39,7 @@ def scaleData(df, inverse = False):
     if not inverse:
         df = scaler.transform(df)
     elif inverse:
-        print("PATEKTIMMASASAS")
-        print(df)
         df = scaler.inverse_transform(df)
-        print("ir tas::::",df)
 
     return df
 

@@ -36,7 +36,19 @@ Explainability now accepts classification mode in all LR, SVM, DT.
 There was no need in scaling separately XY[3], since getXY scales it.
 Problems: Explainability does not work as intended(inacurate for SVM, LR, and does not make sensible explanation for all models)
 
-TODO: various files are being saved multiple times. So when options in MCI/HC is ALL, it should save a file (example 'Columns.csv') once.
 Made ALL variants in Exaplainer, but they arent tested yet.
 
 Shuffle fucntion works on Explain and Train, The data file is saved once.
+
+PART 1 TODO
+*Select Specific features, which makes biggest impact on classification | -
+*Do a separate classification on different data sets(tests, sMRI, ALS)  | -
+*Save all files only once when running program(regardless of options)   | -
+*Use other explanations, not only LIME, for example ELI5, or diagrams DT| -
+*Test data processing functions, models(on f score, recall, spec, sens) | -
+*Make as much functions as possible to accept and return same type      | -
+*Handle exceptions                                                      | -
+*AUC and ROC curves in %                                                | -
+*Make MCI_HC                                                            | -
+
+PART 2 TODO

@@ -36,15 +36,15 @@ def main(argv):
 
         if argv[0]=='DT' or argv[0]=='ALL':
             names.append("DT")
-            models.append(DT(X, y, int(argv[2])))
+            models.append(DT(X, y, int(argv[2]), classificationType))
 
         if argv[0]=='SVM' or argv[0]=='ALL':
             names.append("SVM")
-            models.append(SVM(X, y, int(argv[2])))
+            models.append(SVM(X, y, int(argv[2]), classificationType))
 
         if argv[0]=='LR' or argv[0]=='ALL':
             names.append("LR")
-            models.append(LR(X, y, int(argv[2])))
+            models.append(LR(X, y, int(argv[2]), classificationType))
 
         elif argv[0]!='LR' and argv[0]!='DT' and argv[0]!='SVM' and argv[0]!='ALL':
             exit(0)

@@ -10,11 +10,14 @@ from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 
 
-def SVM(X, y, HyperparametersSelection):
+def SVM(X, y, HyperparametersSelection, classes):
 
     def on_step(optim_result):
         score = bayesClf.best_score_
         print("best score: ", score*100)
+        if score==1:
+            print("Max accuracy achieved")
+            return True
 
     if HyperparametersSelection:
         search_space = {
@@ -46,7 +49,9 @@ def SVM(X, y, HyperparametersSelection):
         value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
         print(value, " ", bayesClf.best_score_*100)
 
+        logClassifier("SVM", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_)
         return clf
+
     else:
         clf = SVC(C=2.46, degree=2, gamma='scale', kernel='linear', tol=0.0248)
         clf.fit(X, y)

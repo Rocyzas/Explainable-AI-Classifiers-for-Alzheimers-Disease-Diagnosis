@@ -1,0 +1,133 @@
+Classifier,Classification Between,Best Accuracy,Confusion Matrix,Parameters
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.9538731478164817), ('max_depth', 15), ('max_features', 'log2'), ('min_samples_leaf', 6), ('min_samples_split', 0.7553290019594124), ('n_estimators', 495)])"
+SVM,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 7892.068750282649), ('coef0', 0.9059171881065965), ('degree', 6), ('gamma', 0.08592365988502688), ('kernel', 'rbf'), ('tol', 0.08240390447003984)])"
+LR,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 5.242118011480567), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0023625588255222728)])"
+DT,MCI_AD,0.9323181049069373,"[[826  30]
+ [ 50 276]]","OrderedDict([('learning_rate', 0.4785282044067342), ('max_depth', 12), ('max_features', 'log2'), ('min_samples_leaf', 6), ('min_samples_split', 0.06586785316233584), ('n_estimators', 253)])"
+SVM,MCI_AD,0.9289340101522843,"[[820  36]
+ [ 48 278]]","OrderedDict([('C', 4971.219664891105), ('coef0', 0.8588371864299222), ('degree', 8), ('gamma', 0.007027049995783684), ('kernel', 'sigmoid'), ('tol', 0.046593542198058)])"
+LR,MCI_AD,0.9331641285956007,"[[828  28]
+ [ 51 275]]","OrderedDict([('C', 1.6058676929714901), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0071547311779369205)])"
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.3192123227839687), ('max_depth', 13), ('max_features', 'log2'), ('min_samples_leaf', 7), ('min_samples_split', 0.7965354201565145), ('n_estimators', 141)])"
+SVM,HC_AD,0.9938574938574939,"[[487   1]
+ [  4 322]]","OrderedDict([('C', 1686.8746250796382), ('coef0', 0.277565108541532), ('degree', 9), ('gamma', 0.02754733109305935), ('kernel', 'rbf'), ('tol', 0.025706892858479352)])"
+LR,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 8.448166521848153), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.005944182898183557)])"
+DT,MCI_AD,0.939932318104907,"[[828  28]
+ [ 43 283]]","OrderedDict([('learning_rate', 0.6318679248340149), ('max_depth', 14), ('max_features', 'log2'), ('min_samples_leaf', 7), ('min_samples_split', 0.1543588000696216), ('n_estimators', 73)])"
+SVM,MCI_AD,0.9289340101522843,"[[819  37]
+ [ 47 279]]","OrderedDict([('C', 5251.484770481987), ('coef0', 0.34393255305375453), ('degree', 5), ('gamma', 0.0035661335432235846), ('kernel', 'sigmoid'), ('tol', 0.09170146414348808)])"
+LR,MCI_AD,0.9357021996615905,"[[836  20]
+ [ 56 270]]","OrderedDict([('C', 0.3058583317182728), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.017213709938431146)])"
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.6438213597130164), ('max_depth', 12), ('max_features', 'log2'), ('min_samples_leaf', 8), ('min_samples_split', 0.9474959157687786), ('n_estimators', 215)])"
+SVM,HC_AD,0.9975429975429976,"[[487   1]
+ [  1 325]]","OrderedDict([('C', 1560.3941612001854), ('coef0', 0.8330804220238253), ('degree', 8), ('gamma', 0.059912508036357684), ('kernel', 'rbf'), ('tol', 0.07478409906592907)])"
+LR,HC_AD,0.9963144963144963,"[[488   0]
+ [  3 323]]","OrderedDict([('C', 3.438353997662379), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.014616382541926407)])"
+DT,MCI_AD,0.9348561759729273,"[[822  34]
+ [ 43 283]]","OrderedDict([('learning_rate', 0.3210295171232672), ('max_depth', 9), ('max_features', 'auto'), ('min_samples_leaf', 7), ('min_samples_split', 0.01146160755575482), ('n_estimators', 295)])"
+SVM,MCI_AD,0.9247038917089678,"[[815  41]
+ [ 48 278]]","OrderedDict([('C', 2308.0833760628684), ('coef0', 0.15998037559648784), ('degree', 7), ('gamma', 0.07509234152858289), ('kernel', 'linear'), ('tol', 0.03756180482229475)])"
+LR,MCI_AD,0.9289340101522843,"[[824  32]
+ [ 52 274]]","OrderedDict([('C', 6.242546358085945), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.041140960106945734)])"
+DT,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('learning_rate', 0.20081829461826406), ('max_depth', 13), ('max_features', 'log2'), ('min_samples_leaf', 5), ('min_samples_split', 0.37672902929158997), ('n_estimators', 119)])"
+SVM,HC_AD,0.9975429975429976,"[[487   1]
+ [  1 325]]","OrderedDict([('C', 7321.76886020167), ('coef0', 0.9167243630855166), ('degree', 10), ('gamma', 0.09736226376735556), ('kernel', 'rbf'), ('tol', 0.06942843856998833)])"
+LR,HC_AD,0.995085995085995,"[[487   1]
+ [  3 323]]","OrderedDict([('C', 9.741732400432403), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.06470818034918986)])"
+DT,MCI_AD,0.9289340101522843,"[[820  36]
+ [ 48 278]]","OrderedDict([('learning_rate', 0.09724805042096896), ('max_depth', 11), ('max_features', 'sqrt'), ('min_samples_leaf', 8), ('min_samples_split', 0.3154531228359831), ('n_estimators', 366)])"
+SVM,MCI_AD,0.9230118443316413,"[[817  39]
+ [ 52 274]]","OrderedDict([('C', 7896.045250526737), ('coef0', 0.8681679328321408), ('degree', 1), ('gamma', 0.08821272046569702), ('kernel', 'poly'), ('tol', 0.03125757710410279)])"
+LR,MCI_AD,0.9289340101522843,"[[823  33]
+ [ 51 275]]","OrderedDict([('C', 8.372893169344827), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.008604706656627594)])"
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.13413592362788326), ('max_depth', 9), ('max_features', 'sqrt'), ('min_samples_leaf', 8), ('min_samples_split', 0.1610075150661871), ('n_estimators', 161)])"
+SVM,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('C', 2929.5412689089308), ('coef0', 0.41385095207523037), ('degree', 1), ('gamma', 0.004172747943663716), ('kernel', 'rbf'), ('tol', 0.08959181060497576)])"
+LR,HC_AD,0.995085995085995,"[[487   1]
+ [  3 323]]","OrderedDict([('C', 5.813774066480148), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.022267473307892947)])"
+DT,MCI_AD,0.934010152284264,"[[822  34]
+ [ 44 282]]","OrderedDict([('learning_rate', 0.12201493370505215), ('max_depth', 14), ('max_features', 'log2'), ('min_samples_leaf', 2), ('min_samples_split', 0.9495894453208047), ('n_estimators', 392)])"
+SVM,MCI_AD,0.9314720812182741,"[[824  32]
+ [ 49 277]]","OrderedDict([('C', 3558.419287602588), ('coef0', 0.2346623651346012), ('degree', 9), ('gamma', 0.03014033188816865), ('kernel', 'poly'), ('tol', 0.06760624808084764)])"
+LR,MCI_AD,0.934010152284264,"[[828  28]
+ [ 50 276]]","OrderedDict([('C', 0.9491723727246505), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.003578484086833528)])"
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.6636146926853843), ('max_depth', 10), ('max_features', 'sqrt'), ('min_samples_leaf', 5), ('min_samples_split', 0.9235447219588371), ('n_estimators', 388)])"
+SVM,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('C', 9561.248833318248), ('coef0', 0.2862149977277471), ('degree', 1), ('gamma', 0.029359215182546403), ('kernel', 'poly'), ('tol', 0.011089267638279538)])"
+LR,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 4.366144141792729), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0011539417508454471)])"
+DT,MCI_AD,0.937394247038917,"[[825  31]
+ [ 43 283]]","OrderedDict([('learning_rate', 0.31561521754285915), ('max_depth', 12), ('max_features', 'auto'), ('min_samples_leaf', 3), ('min_samples_split', 0.2791207761835169), ('n_estimators', 154)])"
+SVM,MCI_AD,0.928087986463621,"[[819  37]
+ [ 48 278]]","OrderedDict([('C', 8893.762065366402), ('coef0', 0.07738709196448047), ('degree', 1), ('gamma', 0.0124259609022988), ('kernel', 'linear'), ('tol', 0.03521810242986475)])"
+LR,MCI_AD,0.9348561759729273,"[[825  31]
+ [ 46 280]]","OrderedDict([('C', 5.495658102235735), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0071977712084193264)])"
+DT,HC_AD,1.0,"[[488   0]
+ [  0 326]]","OrderedDict([('learning_rate', 0.8815367749711341), ('max_depth', 11), ('max_features', 'log2'), ('min_samples_leaf', 9), ('min_samples_split', 0.6891150171049071), ('n_estimators', 415)])"
+SVM,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('C', 3545.9708461102214), ('coef0', 0.4345381630370392), ('degree', 3), ('gamma', 0.05325043806752913), ('kernel', 'rbf'), ('tol', 0.04389390663232479)])"
+LR,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('C', 9.65184434389539), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.008235980046860108)])"
+DT,MCI_AD,0.934010152284264,"[[828  28]
+ [ 50 276]]","OrderedDict([('learning_rate', 0.24963763172788428), ('max_depth', 15), ('max_features', 'sqrt'), ('min_samples_leaf', 9), ('min_samples_split', 0.16125054973117295), ('n_estimators', 210)])"
+SVM,MCI_AD,0.9213197969543148,"[[816  40]
+ [ 53 273]]","OrderedDict([('C', 779.6812428413004), ('coef0', 0.8557274240361441), ('degree', 10), ('gamma', 0.030224096689375746), ('kernel', 'linear'), ('tol', 0.017214983154546427)])"
+LR,MCI_AD,0.928087986463621,"[[829  27]
+ [ 58 268]]","OrderedDict([('C', 2.4827033922334727), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0335505685581782)])"
+DT,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('learning_rate', 0.5791917928315808), ('max_depth', 14), ('max_features', 'sqrt'), ('min_samples_leaf', 4), ('min_samples_split', 0.09169875869176763), ('n_estimators', 436)])"
+SVM,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 2731.2085099223423), ('coef0', 0.037551567267345216), ('degree', 4), ('gamma', 0.0014085457696160243), ('kernel', 'rbf'), ('tol', 0.038589403346553725)])"
+LR,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 0.7089720603370915), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.0018581062570502112)])"
+DT,MCI_AD,0.9306260575296108,"[[823  33]
+ [ 49 277]]","OrderedDict([('learning_rate', 0.5551972305145747), ('max_depth', 8), ('max_features', 'sqrt'), ('min_samples_leaf', 8), ('min_samples_split', 0.048527818374033166), ('n_estimators', 74)])"
+SVM,MCI_AD,0.9230118443316413,"[[818  38]
+ [ 53 273]]","OrderedDict([('C', 4292.863823867756), ('coef0', 0.03483506443839902), ('degree', 9), ('gamma', 0.05726259102257352), ('kernel', 'poly'), ('tol', 0.08880086620500642)])"
+LR,MCI_AD,0.9314720812182741,"[[824  32]
+ [ 49 277]]","OrderedDict([('C', 8.796369656045917), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.009157203527157598)])"
+DT,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('learning_rate', 0.7242528544111784), ('max_depth', 17), ('max_features', 'auto'), ('min_samples_leaf', 6), ('min_samples_split', 0.31621158487147266), ('n_estimators', 377)])"
+SVM,HC_AD,0.9963144963144963,"[[487   1]
+ [  2 324]]","OrderedDict([('C', 1296.101225336906), ('coef0', 0.47704353046886216), ('degree', 3), ('gamma', 0.024572731128488533), ('kernel', 'poly'), ('tol', 0.011176732109303695)])"
+LR,HC_AD,0.9987714987714987,"[[488   0]
+ [  1 325]]","OrderedDict([('C', 7.324733109924811), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.012570200717218998)])"
+DT,MCI_AD,0.9365482233502538,"[[830  26]
+ [ 49 277]]","OrderedDict([('learning_rate', 0.08866560578940486), ('max_depth', 9), ('max_features', 'sqrt'), ('min_samples_leaf', 8), ('min_samples_split', 0.02691454260626691), ('n_estimators', 198)])"
+SVM,MCI_AD,0.9238578680203046,"[[818  38]
+ [ 52 274]]","OrderedDict([('C', 4777.888101537097), ('coef0', 0.18024614284043075), ('degree', 6), ('gamma', 0.0006064358252323568), ('kernel', 'rbf'), ('tol', 0.07933059271591371)])"
+LR,MCI_AD,0.9314720812182741,"[[825  31]
+ [ 50 276]]","OrderedDict([('C', 4.895196465162585), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.01483590278805364)])"
+DT,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('learning_rate', 0.5823569773027523), ('max_depth', 12), ('max_features', 'sqrt'), ('min_samples_leaf', 4), ('min_samples_split', 0.9233585933021479), ('n_estimators', 218)])"
+SVM,HC_AD,0.9938574938574939,"[[486   2]
+ [  3 323]]","OrderedDict([('C', 2006.8264605597176), ('coef0', 0.08764584527046661), ('degree', 8), ('gamma', 0.0980604112748787), ('kernel', 'linear'), ('tol', 0.08526666879547697)])"
+LR,HC_AD,0.9938574938574939,"[[487   1]
+ [  4 322]]","OrderedDict([('C', 3.397278841147447), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.02564642265080527)])"
+DT,MCI_AD,0.934010152284264,"[[819  37]
+ [ 41 285]]","OrderedDict([('learning_rate', 0.7581797900545713), ('max_depth', 13), ('max_features', 'auto'), ('min_samples_leaf', 2), ('min_samples_split', 0.14882226249380048), ('n_estimators', 282)])"
+SVM,MCI_AD,0.9179357021996616,"[[808  48]
+ [ 49 277]]","OrderedDict([('C', 1004.837980400772), ('coef0', 0.6580341772013057), ('degree', 8), ('gamma', 0.029615588738339017), ('kernel', 'poly'), ('tol', 0.023276329476951775)])"
+LR,MCI_AD,0.9331641285956007,"[[827  29]
+ [ 50 276]]","OrderedDict([('C', 9.127869368646964), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.014339617754215672)])"
+DT,HC_AD,0.9975429975429976,"[[488   0]
+ [  2 324]]","OrderedDict([('learning_rate', 0.7027638763756876), ('max_depth', 10), ('max_features', 'log2'), ('min_samples_leaf', 4), ('min_samples_split', 0.5655750049187288), ('n_estimators', 397)])"
+SVM,HC_AD,0.9975429975429976,"[[487   1]
+ [  1 325]]","OrderedDict([('C', 4482.195422074221), ('coef0', 0.2779266504441434), ('degree', 5), ('gamma', 0.03914573681688955), ('kernel', 'linear'), ('tol', 0.017700310020239727)])"
+LR,HC_AD,0.9963144963144963,"[[488   0]
+ [  3 323]]","OrderedDict([('C', 7.626020197658832), ('penalty', 'l1'), ('solver', 'liblinear'), ('tol', 0.02007137188553074)])"
+DT,MCI_AD,0.9365482233502538,"[[837  19]
+ [ 56 270]]","OrderedDict([('learning_rate', 0.036885063844742015), ('max_depth', 20), ('max_features', 'sqrt'), ('min_samples_leaf', 1), ('min_samples_split', 0.00942279409396558), ('n_estimators', 111)])"
+SVM,MCI_AD,0.9204737732656514,"[[812  44]
+ [ 50 276]]","OrderedDict([('C', 9144.92767930851), ('coef0', 0.6470897310090769), ('degree', 0), ('gamma', 0.002966649027843427), ('kernel', 'linear'), ('tol', 0.04658275850190433)])"
+LR,MCI_AD,0.9331641285956007,"[[831  25]
+ [ 54 272]]","OrderedDict([('C', 3.4942034023127113), ('penalty', 'l2'), ('solver', 'liblinear'), ('tol', 0.07890716292017547)])"

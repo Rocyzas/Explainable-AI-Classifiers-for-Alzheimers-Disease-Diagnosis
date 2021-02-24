@@ -11,6 +11,7 @@ from DTclf import DT
 
 def explain(rows, name, classes):
 
+    print("Starting model ", name, " on ", classes)
     clf = loadModel(name+"-"+classes)
 
     # get dataframe of all the data for explainer
@@ -38,12 +39,20 @@ def explain(rows, name, classes):
 
     print("STARTING EXPLAINATION")
 
-    # for i in range(1,2,1):
-    explanation = explainer.explain_instance(rows[0], clf.predict_proba, top_labels=1, num_features=5)
-    html_data = explanation.as_html()
-    HTML(data=html_data)
-    # print(i, " is saved")
-    explanation.save_to_file(uniquify(ExplainPath + name  + "_" + classes + "_classif_explanation.html"))
+    ExplainPath_Specific = ExplainPath + name + "_" + classes
+
+    try:
+        os.mkdir(ExplainPath_Specific)
+    except OSError:
+        print ("Creation of the directory %s failed" % ExplainPath_Specific)
+
+    for i in range(len(rows)):
+        explanation = explainer.explain_instance(rows[i], clf.predict_proba, top_labels=1, num_features=5)
+        html_data = explanation.as_html()
+        HTML(data=html_data)
+        print(i, " is saved")
+        print(ExplainPath_Specific)
+        explanation.save_to_file(uniquify(ExplainPath_Specific  + "/" + str(i) + "_classif_explanation.html"))
 
 def explainELI5(clf):
     import eli5

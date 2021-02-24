@@ -10,12 +10,15 @@ from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 
 
-def DT(X, y, HyperparametersSelection):
+def DT(X, y, HyperparametersSelection, classes):
 
     # TODO should use opt result as a treshold when to stop
     def on_step(optim_result):
         score = bayesClf.best_score_
         print("Score: DT: ", score*100)
+        if score == 1:
+            print('Max Accuracy Achieved')
+            return True
 
     if HyperparametersSelection==1:
 
@@ -49,6 +52,8 @@ def DT(X, y, HyperparametersSelection):
         value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
 
         print(value, " ", bayesClf.best_score_*100)
+
+        logClassifier("DT", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_)
 
         return clf
 
