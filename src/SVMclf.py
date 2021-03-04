@@ -22,7 +22,8 @@ def SVM(X, y, HyperparametersSelection, classes):
     if HyperparametersSelection:
         search_space = {
                 # "penalty":Categorical(['l1', 'l2', 'elasticnet', 'none']),
-                "kernel":Categorical(['linear', 'poly', 'rbf', 'sigmoid']),
+                # , 'poly', 'rbf', 'sigmoid']
+                "kernel":Categorical(['linear']),
                 "degree":Integer(0, 10), #for poly only, ignored by other kernels
                 "gamma":Real(1e-5, 1e-1),
                 "coef0":Real(0, 1),
@@ -42,6 +43,7 @@ def SVM(X, y, HyperparametersSelection, classes):
 
         y_pred = cross_val_predict(clf, X, y, cv=CV)
         matrix = confusion_matrix(y, y_pred)
+        # 00-TN, 11 - TP, 10 -FN, 01 -FP
         print("====SVM=====\n Confusion Matrix")
 
         print(matrix)
@@ -49,7 +51,8 @@ def SVM(X, y, HyperparametersSelection, classes):
         value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
         print(value, " ", bayesClf.best_score_*100)
 
-        logClassifier("SVM", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_)
+        logClassifier("SVM", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_, y, y_pred)
+
         return clf
 
     else:

@@ -2,21 +2,18 @@ from joblib import load, dump
 import os
 import csv
 
-
-visiskaiGlobalus = 0
-
 # ========== Data Processing ============
 # Sheffiled data sets
-# PATH_sMRI = os.getcwd() +  "/../DataFiles/SheffieldProspective_sMRI.csv"
-# PATH_ASL = os.getcwd() +  "/../DataFiles/SheffieldProspective_ASL.csv"
-# PATH_Demo = os.getcwd() +  "/../DataFiles/SheffieldProspective_Demo.csv"
-# PATH_Neuro = os.getcwd() +  "/../DataFiles/SheffieldProspective_Neuro.csv"
-#
+PATH_sMRI_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_sMRI.csv"
+PATH_ASL_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_ASL.csv"
+PATH_Demo_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_Demo.csv"
+PATH_Neuro_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_Neuro.csv"
+PATH_synthetic = os.getcwd() +  "/../DataFiles/SyntheticData.csv"
 # ADNI data sets
-PATH_sMRI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_sMRI.csv"
-PATH_ASL = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_ASL.csv"
-PATH_Demo = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Demo.csv"
-PATH_Neuro = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Neuro.csv"
+PATH_sMRI_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_sMRI.csv"
+PATH_ASL_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_ASL.csv"
+PATH_Demo_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Demo.csv"
+PATH_Neuro_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Neuro.csv"
 
 
 saveColTemplate = "../DataFiles/Columns.csv"
@@ -25,11 +22,13 @@ fulldata = "../DataFiles/"
 listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude']
 # listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'CDR']
 
+# normalised brain volume value (ADNI)
+valueOfBrainVolumeADNI = 1214750.869
 
 
 # ============= Classifiers =============
-N_ITER = 5
-CV = 5
+N_ITER = 8
+CV = 7
 modelsPath = '../Models/'
 repetativeScore = 0
 
@@ -52,22 +51,43 @@ def loadModel(name):
     return model
 
 def saveModel(model, modelName, classes):
-    # clf = load('Models/' + filename.joblib')
     name = modelName+"-"+classes
     dump(model, uniquify(modelsPath + name +'.joblib'))
 
-def logClassifier(clf, classes, score, confMatrix,  parameters):
+def saveDataFiles(classes, dfProcessed):
+    # processed df (without labels, only training, unscaled data)
+    dfProcessed.to_csv(fulldata + classes + '_DataUsed.csv', sep=',')
+    print("Cleaned and Processed dataframe saved")
 
+def saveFilesOnce(df, columns):
+
+    # cleaned data with with all columns and labels
+    df.to_csv(fulldata + 'FullData.csv', sep=',')
+
+    # columns that are used in training(except labels)
+    # user should use this 'template' for explanation
+    columns.to_csv(saveColTemplate, sep=',', index=False)
+    print("Full dataframe and columns csv file saved")
+
+def logClassifier(clf, classes, score, confMatrix,  parameters, y, y_pred):
+    from sklearn.metrics import roc_auc_score, recall_score
+    import datetime
+    utc_datetime = datetime.datetime.utcnow()
+    time = utc_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+    # If log does not exist, create Column names
     if os.path.exists(modelsLog)!=True:
         with open(modelsLog, mode='w') as f:
             writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(["Classifier", "Classification Between", "Best Accuracy", "Confusion Matrix", "Parameters"])
+            writer.writerow(["Classifier", "Classification Between", "Best Accuracy",
+                "Confusion Matrix", "Parameters", "ROC_AUC score","Recall", "Time"])
             f.close()
 
+    # append existing 'modelsLog' file
     with open(modelsLog, mode='a+') as file_object:
         writer = csv.writer(file_object, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-
-        writer.writerow([clf, classes, score, confMatrix,  parameters])
+        writer.writerow([clf, classes, score, confMatrix,  parameters,
+        roc_auc_score(y, y_pred), recall_score(y, y_pred), time])
 
     file_object.close()
 

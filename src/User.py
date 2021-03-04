@@ -2,6 +2,7 @@ import time
 import sys
 from joblib import load
 
+from PythonParser import parserExplainARGV
 from Params import *
 from LRclf import *
 from SVMclf import *
@@ -10,28 +11,32 @@ from DTclf import *
 from Explainer import *
 
 classifiersList = ['SVM', 'LR', 'DT']
-classesList = ['HC_AD', 'MCI_AD']
+classesList = ['HC_AD', 'MCI_AD', 'HC_MCI']
 
 def main(argv):
     # no need to load a model in userpy. it should be in explainer.
 
+    args = parserExplainARGV(argv)
+    predRows = pd.read_csv(args.data)
 
-    predRows = pd.read_csv(argv[2])
+    # feature_importance(args.classifier, args.classification)
+    explainELI5(predRows, args.classifier, args.classification)
+    # exit()
 
-    if argv[0]=='ALL' and argv[1]=='ALL':
+    if args.classifier=='ALL' and args.classification=='ALL':
         for model in classifiersList:
             for cl in classesList:
                 explain(predRows, model, cl)
 
-    elif argv[1]=='ALL':
+    elif args.classification=='ALL':
         for cl in classesList:
-            explain(predRows, argv[0], cl)
+            explain(predRows, args.classifier, cl)
 
-    elif argv[0]=='ALL':
+    elif args.classifier=='ALL':
         for model in classifiersList:
-            explain(predRows, model, argv[1])
+            explain(predRows, model, args.classification)
     else:
-        explain(predRows, argv[0], argv[1])
+        explain(predRows, args.classifier, args.classification)
 
 
 if __name__ == '__main__':

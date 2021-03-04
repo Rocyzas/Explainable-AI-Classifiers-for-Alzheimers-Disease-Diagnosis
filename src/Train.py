@@ -1,63 +1,65 @@
 import time
 import numpy as np
-import statistics
 import random
 import sys
-from math import sqrt
-
-from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 from DataProcessing import *
-# from Params import *
 from LRclf import LR
 from SVMclf import SVM
 from DTclf import DT
+from PythonParser import parserTrainARGV
+
+def add(a, b):
+    return a+b
 
 def main(argv):
+
+    args = parserTrainARGV(argv)
 
     # Loading data for any scenario
     df = getDf()
 
-    if argv[1]=='ALL':
-        classesList = ['HC_AD', 'MCI_AD']
+    if args.classification=='ALL':
+        classesList = ['HC_AD', 'MCI_AD', 'HC_MCI']
     else:
-        classesList = [argv[1]]
+        classesList = [args.classification]
 
 
-    for classificationType in classesList:
-        XY = getXY(df, classificationType)
+    # if one is specified, goes only though the loop once
+    for classification in classesList:
 
+        XY = getXY(df, classification)
         X, y = shuffleZipData(XY[0], XY[1])
-
 
         models = []
         names = []
 
-        if argv[0]=='DT' or argv[0]=='ALL':
+        if args.classifier=='DT' or args.classifier=='ALL':
             names.append("DT")
-            models.append(DT(X, y, int(argv[2]), classificationType))
+            models.append(DT(X, y, int(args.BSCV), classification))
 
-        if argv[0]=='SVM' or argv[0]=='ALL':
+        if args.classifier=='SVM' or args.classifier=='ALL':
             names.append("SVM")
-            models.append(SVM(X, y, int(argv[2]), classificationType))
+            models.append(SVM(X, y, int(args.BSCV), classification))
 
-        if argv[0]=='LR' or argv[0]=='ALL':
+        if args.classifier=='LR' or args.classifier=='ALL':
             names.append("LR")
-            models.append(LR(X, y, int(argv[2]), classificationType))
+            models.append(LR(X, y, int(args.BSCV), classification))
 
-        elif argv[0]!='LR' and argv[0]!='DT' and argv[0]!='SVM' and argv[0]!='ALL':
-            exit(0)
+        if args.save==True:
+            saveDataFiles(classification, XY[4])
 
-        if argv[3]=='1':
             # clf, clfName, classes
             for name, model in zip(names, models):
-                saveModel(model, name, classificationType)
+                saveModel(model, name, classification)
+
+    if args.save==True:
+        saveFilesOnce(df, XY[2])
 
 if __name__ == '__main__':
     start_time = time.time()
 
-    # python3 Model.py 'clasisfier' 'classification_method' '0/1(explainability)', 0/1 for selecting best hyper
+    # python3 Model.py 'clasisfier' 'classification_method', 0/1 for selecting best hyper 0/1 save
     main(sys.argv[1:])
 
     print("--- %.2f seconds ---" % (time.time() - start_time))

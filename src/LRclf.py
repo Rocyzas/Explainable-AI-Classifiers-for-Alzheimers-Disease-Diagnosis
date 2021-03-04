@@ -9,7 +9,6 @@ from sklearn.metrics import confusion_matrix
 from skopt import BayesSearchCV
 from skopt.space import Real, Categorical, Integer
 
-
 def LR(X, y, HyperparametersSelection, classes):
 
     def on_step(optim_result):
@@ -28,8 +27,6 @@ def LR(X, y, HyperparametersSelection, classes):
                 "C":Real(0.1, 10)
             }
 
-        # gridClf = GridSearchCV(LogisticRegression(random_state=0), gridSearch, cv=CV,
-        #                     scoring="balanced_accuracy",  return_train_score = False, verbose=1)
         bayesClf = BayesSearchCV(LogisticRegression(random_state=0), search_space, n_iter=N_ITER, cv=CV,
                             scoring="accuracy",  return_train_score = False)
 
@@ -47,7 +44,8 @@ def LR(X, y, HyperparametersSelection, classes):
         value = 100*(matrix[0][0]+matrix[1][1])/(np.sum(matrix))
         print(value, " ", bayesClf.best_score_*100)
 
-        logClassifier("LR", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_)
+        logClassifier("LR", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_, y, y_pred)
+
         return clf
 
     else:

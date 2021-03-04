@@ -53,7 +53,7 @@ def DT(X, y, HyperparametersSelection, classes):
 
         print(value, " ", bayesClf.best_score_*100)
 
-        logClassifier("DT", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_)
+        logClassifier("DT", classes, bayesClf.best_score_, matrix,  bayesClf.best_params_, y, y_pred)
 
         return clf
 
