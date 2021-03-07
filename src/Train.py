@@ -9,6 +9,8 @@ from SVMclf import SVM
 from DTclf import DT
 from PythonParser import parserTrainARGV
 
+from Explainer import feature_importance
+
 def add(a, b):
     return a+b
 
@@ -38,20 +40,20 @@ def main(argv):
             names.append("DT")
             models.append(DT(X, y, int(args.BSCV), classification))
 
-        if args.classifier=='SVM' or args.classifier=='ALL':
-            names.append("SVM")
-            models.append(SVM(X, y, int(args.BSCV), classification))
-
         if args.classifier=='LR' or args.classifier=='ALL':
             names.append("LR")
             models.append(LR(X, y, int(args.BSCV), classification))
 
+        if args.classifier=='SVM' or args.classifier=='ALL':
+            names.append("SVM")
+            models.append(SVM(X, y, int(args.BSCV), classification))
+
         if args.save==True:
             saveDataFiles(classification, XY[4])
 
-            # clf, clfName, classes
             for name, model in zip(names, models):
                 saveModel(model, name, classification)
+                feature_importance(model, name, classification, XY[2])
 
     if args.save==True:
         saveFilesOnce(df, XY[2])

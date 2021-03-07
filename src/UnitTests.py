@@ -1,4 +1,6 @@
+
 import unittest
+
 import DataProcessing
 import pandas as pd
 import numpy as np
@@ -31,7 +33,7 @@ XvalZ = np.zeros(len(Xval))
 
 class TestData(unittest.TestCase):
 
-    def test_clear_data(self):
+    def test_1_clear_data(self):
         # with 'm' in ID
         assert_frame_equal(DataProcessing.clear_data(A_df), A_df_exp)
         assert_frame_equal(DataProcessing.clear_data(A_df_exp), A_df_exp)
@@ -46,13 +48,23 @@ class TestData(unittest.TestCase):
 
         print("Clear Data Tested")
 
-    def test_shuffleZipData(self):
+    def test_2_shuffleZipData(self):
         assert not np.array_equal(DataProcessing.shuffleZipData(Xval)[0], Xval)
         assert not np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[0], Xval)
         np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[1], XvalZ)
         np.array_equal(DataProcessing.shuffleZipData(XvalZ)[0], XvalZ)
 
         print("Shuffle Zip Data Tested")
+
+    def test_3_scaleData(self):
+        # print("BV: ", Xval.reshape(-1, 1))
+        scaledData = DataProcessing.scaleData(Xval.reshape(-1, 1))
+        # print("BV: ", scaledData)
+        # print("THE sc ", scaledData)
+        backData = DataProcessing.scaleData(scaledData)
+        # print("THE BAC: ",backData)
+        #
+        # print("Scale Function Tested")
 
 
 if __name__=='__main__':

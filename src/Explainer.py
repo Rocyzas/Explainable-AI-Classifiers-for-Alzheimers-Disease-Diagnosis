@@ -14,6 +14,7 @@ from DTclf import DT
 def explain(rows, name, classes):
 
     print("Starting to Explain Model ", name, " on ", classes)
+
     try:
         clf = loadModel(name+"-"+classes)
     except FileNotFoundError:
@@ -46,7 +47,7 @@ def explain(rows, name, classes):
                                         # categorical_features=[1],
                                         discretize_continuous=False)
 
-    print("STARTING EXPLAINATION")
+
 
     ExplainPath_Specific = ExplainPath + name + "_" + classes
 
@@ -87,36 +88,26 @@ def explain(rows, name, classes):
     # sp_obj = submodular_pick.SubmodularPick(explainer, df_titanic[model.feature_name()].values, prob, num_features=5,num_exps_desired=10)
     # [exp.as_pyplot_figure(label=1) for exp in sp_obj.sp_explanations]
 
-def feature_importance(name, classes):
-        clf = loadModel(name+"-"+classes)
+def feature_importance(clf, name, classes, columns):
 
         numberOfImportatnFeatures_toShow = 10
 
-        # I dont even need that, only lsit of COLUMNS is required
-        df = getDf(False)
-        XY = getXY(df, classes)
-        X, y = shuffleZipData(XY[0], XY[1])
+
+        cols = list(columns)
+        fc=[]
+        # print("LENGTH OF THE WITHTS", len(clf.feature_importances_), clf.__class__.__name__)
 
         if clf.__class__.__name__=="GradientBoostingClassifier":
             print("Feature importance on ", clf.__class__.__name__)
-            # print("Feature importance works only with Tree Based classifiers,"\
-            # " in this case with GradientBoostingClassifier")
-            # exit()
 
             importances = clf.feature_importances_
-            # print(importances)
             std = np.std([clf.feature_importances_ for tree in clf.estimators_], axis=0)
-            # print(std)
-            # exit()
-            indices = np.argsort(importances)[::-1]
 
-            cols = list(XY[2])
-            fc=[]
+            indices = np.argsort(importances)[::-1]
 
             for i in indices:
                 fc.append(cols[i])
-            # print(X.shape, len(importances), len(indices))
-            # exit()
+
         elif clf.__class__.__name__=="LogisticRegression":
             importances = clf.coef_[0]
             abs_weights = np.abs(importances)
@@ -124,58 +115,79 @@ def feature_importance(name, classes):
             # indices = np.fliplr(np.argsort(abs_weights))
             indices = (-abs_weights).argsort()[:len(abs_weights)]
 
-            cols = list(XY[2])
-            fc=[]
-
             for i in indices:
                 fc.append(cols[i])
-            print(importances)
-            print(indices)
-
 
             # not possible for non-linear kernel (might check why for the report)
         elif clf.__class__.__name__=="SVC" and clf.kernel=="linear":
 
             importances = clf.coef_[0]
             abs_weights = np.abs(importances)
-
+            print("BSK PRIES:: ", len(importances), len(abs_weights))
+            # print("BSK PRIES:: ", len(indices))
             # indices = np.fliplr(np.argsort(abs_weights))
             indices = (-abs_weights).argsort()[:len(abs_weights)]
 
-            cols = list(XY[2])
-            fc=[]
-
+            print(len(cols))
+            print(len(indices))
             for i in indices:
                 fc.append(cols[i])
-            print(importances)
-            print(indices)
 
         else:
             print("Classifier required: GradientBoostingClassifier or LogisticRegression or SVC(linear)")
-            exit()
+            return
 
         plt.figure(figsize=(6,8))
         plt.title("Feature importances " + str(clf.__class__.__name__))
         # print(len(importances[0]), len(indices[0]))
         # exit()
-        plt.bar(range(X.shape[1]), importances[indices], color="r",
-            align="center")
-        plt.xticks(range(X.shape[1]), fc, rotation='vertical')
+        # print(X.shape[1], (columns), "sssss")
+        print(type(columns), len(columns), type(importances[indices]), len(importances[indices]))
+        plt.bar(range(len(columns)), importances[indices], color="r", align="center")
+        plt.xticks(range(len(columns)), fc, rotation='vertical')
         plt.subplots_adjust(bottom=0.25)
         plt.xlim([-0.5, numberOfImportatnFeatures_toShow])
-        plt.show()
+
+
+        try:
+            path = modelsPath + "FeatureImportance"
+            os.mkdir(path)
+        except OSError:
+            print ("Creation of the directory %s failed or already exist" % path)
+
+        path = path + "/" + classes
+        try:
+            os.mkdir(path)
+        except OSError:
+            print ("Creation of the directory %s failed or already exist" % path)
+
+        plt.savefig(uniquify(path  + "/" + name + "_Feature_Importance.png"))
+
+        # plt.show()
+        # plt.clf()
+        # plt.close()
+        plt.close('all')
 
 
 def explainELI5(rows, name, classes):
+    df = getDf(False)
+
+    XY = getXY(df, classes, rows)
+    # X, y = shuffleZipData(XY[0], XY[1])
+    cols = XY[2]
+
     import eli5
-    print("IMPORT OF ELI5 SUCCESSFULL")
-    # exit()
+
     clf = loadModel(name+"-"+classes)
-    print(eli5.show_weights(clf,vec=1, top=20))
-    '''
-    html_data = explanation.as_html()
-    HTML(data=html_data)
-    print(i, " is saved")
-    explanation.save_to_file(uniquify(ExplainPath_Specific  + "/" + str(i) + "_classif_explanation.html"))
-'''
-    exit()
+
+    ExplainPath_Specific = ExplainPath + name + "_" + classes
+
+    weights = eli5.explain_weights(clf, feature_names=cols, top=len(cols))
+    html = eli5.format_as_html(weights)
+
+    # explanation.save_to_file()
+
+
+    with open(uniquify(ExplainPath_Specific  + "/" + "_ELI5.html"), 'w') as f:
+        f.write(html)
+        f.close()

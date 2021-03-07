@@ -12,11 +12,11 @@ from Params import *
 
 def shuffleZipData(X, y=[]):
 
-    if y!=[]:
+    if len(y)!=0:
         combination = list(zip(X, y))
         random.shuffle(combination)
         X, y = zip(*combination)
-    elif y==[]:
+    elif len(y)==0:
         combination = list(X)
         random.shuffle(combination)
         X = combination
@@ -43,17 +43,15 @@ def clear_data(df):
     return df
 
 # def f_importances(coef, names)
-def scaleData(df, inverse = False):
+def scaleData(df):
     # scaler = MinMaxScaler()
     # scaler = PowerTransformer()
     scaler = StandardScaler()
 
     scaler.fit(df)
 
-    if not inverse:
-        df = scaler.transform(df)
-    elif inverse:
-        df = scaler.inverse_transform(df)
+    # if not inverse:
+    df = scaler.transform(df)
 
     return df
 
@@ -76,7 +74,7 @@ def normaliseShef(df):
 def getDf(value = True):
 
     try:
-        '''
+
         # ADNI data
         merged = pd.read_csv(PATH_Demo_ADNI)
         # merged = pd.merge(merged, pd.read_csv(PATH_Neuro_ADNI), how='inner', on=['ID', 'ID'])
@@ -94,8 +92,8 @@ def getDf(value = True):
 
         # merging both ADNI and Sheffield datasets
         merged = pd.concat([merged, mergedSheffield], ignore_index=True)
-        '''
-        merged = pd.read_csv(PATH_synthetic)
+
+        # merged = pd.read_csv(PATH_synthetic)
 
     except pd.errors.EmptyDataError:
         raise pd.errors.EmptyDataError("Exception: Empty data or header is encountered")
@@ -108,6 +106,7 @@ def getDf(value = True):
 
 def getXY(merged, classes, fillData = pd.DataFrame()):
 
+    print("SHPE BEG:: ", merged.shape)
     doesClassContainAD = True
     if classes == 'HC_AD':
         merged = merged[merged['MCI'] != 1] # exclude MCI 1
@@ -134,7 +133,9 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
     #                 ' Left PHG parahippocampal gyrus', 'RightHippocampus', 'LeftHippocampus'])
     # merged = merged.filter([' Right PHG parahippocampal gyrus',
     #                 ' Left PHG parahippocampal gyrus', 'RightHippocampus', 'LeftHippocampus'])
-    columns = pd.DataFrame(columns = list(merged.columns))
+    # columns = pd.DataFrame(columns = list(merged.columns))
+    # print("TARP: ", list(merged.columns), " IR")
+    # exit()
     # columns.to_csv(fulldata + "LAIKINAIVISICOLUMAI.csv", sep=',')
 
     # Do i need numeric_only=True??
@@ -159,5 +160,8 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
     fillData = X[len(X)-len(fillData):]
 
     X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
-
-    return X, Y, columns, fillData, merged
+    print("LENGHT@@@@@@@@@@@@@@@@@")
+    print(X.shape, "  -  ", len(list(merged.columns)))
+    print("SHPE END:: ",merged.shape)
+    # exit()
+    return X, Y, list(merged.columns), fillData, merged

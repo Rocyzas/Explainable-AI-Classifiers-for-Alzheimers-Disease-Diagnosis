@@ -7,6 +7,7 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.metrics import confusion_matrix
 
 from skopt import BayesSearchCV
+from sklearn.model_selection import GridSearchCV
 from skopt.space import Real, Categorical, Integer
 
 
@@ -21,18 +22,19 @@ def SVM(X, y, HyperparametersSelection, classes):
 
     if HyperparametersSelection:
         search_space = {
-                # "penalty":Categorical(['l1', 'l2', 'elasticnet', 'none']),
-                # , 'poly', 'rbf', 'sigmoid']
-                "kernel":Categorical(['linear']),
-                "degree":Integer(0, 10), #for poly only, ignored by other kernels
-                "gamma":Real(1e-5, 1e-1),
-                "coef0":Real(0, 1),
-                "tol":Real(1e-5, 1e-1),
-                "C":Real(1e-4, 1e+4)
-            }
+            # "penalty":Categorical(['l1', 'l2', 'elasticnet', 'none']),
+            # , 'poly', 'rbf', 'sigmoid']
+            "kernel":Categorical(['poly', 'rbf', 'sigmoid', 'linear']),
+            "degree":Integer(0, 10), #for poly only, ignored by other kernels
+            "gamma":Real(1e-5, 1e-1),
+            "coef0":Real(0, 1),
+            "tol":Real(1e-5, 1e-1),
+            "C":Real(1e-4, 1)
+        }
 
-        bayesClf = BayesSearchCV(SVC(random_state=0), search_space, n_iter=N_ITER, cv=CV,
-                            scoring="accuracy",  return_train_score = False)
+        bayesClf = BayesSearchCV(SVC(random_state=0), search_space,
+                                n_iter=N_ITER, cv=CV,
+                                scoring="accuracy",  return_train_score = False)
 
         bayesClf.fit(X, y, callback=on_step)
 
@@ -56,7 +58,10 @@ def SVM(X, y, HyperparametersSelection, classes):
         return clf
 
     else:
-        clf = SVC(C=2.46, degree=2, gamma='scale', kernel='linear', tol=0.0248)
+        # RBF fine
+        # Poly fine
+        # sigmoi fine
+        clf = SVC(random_state=0, kernel='linear')
         clf.fit(X, y)
 
         y_pred = cross_val_predict(clf, X, y, cv=CV)

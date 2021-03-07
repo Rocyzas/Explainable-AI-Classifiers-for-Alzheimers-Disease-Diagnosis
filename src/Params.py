@@ -1,6 +1,7 @@
 from joblib import load, dump
 import os
 import csv
+import pandas as pd
 
 # ========== Data Processing ============
 # Sheffiled data sets
@@ -27,8 +28,8 @@ valueOfBrainVolumeADNI = 1214750.869
 
 
 # ============= Classifiers =============
-N_ITER = 8
-CV = 7
+N_ITER = 12
+CV = 5
 modelsPath = '../Models/'
 repetativeScore = 0
 
@@ -66,6 +67,7 @@ def saveFilesOnce(df, columns):
 
     # columns that are used in training(except labels)
     # user should use this 'template' for explanation
+    columns = pd.DataFrame(columns = columns)
     columns.to_csv(saveColTemplate, sep=',', index=False)
     print("Full dataframe and columns csv file saved")
 

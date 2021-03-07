@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 
 from skopt import BayesSearchCV
+# from sklearn.model_selection import GridSearchCV
 from skopt.space import Real, Categorical, Integer
 
 def LR(X, y, HyperparametersSelection, classes):
@@ -26,11 +27,12 @@ def LR(X, y, HyperparametersSelection, classes):
                 "tol":Real(1e-5, 1e-1),
                 "C":Real(0.1, 10)
             }
-
-        bayesClf = BayesSearchCV(LogisticRegression(random_state=0), search_space, n_iter=N_ITER, cv=CV,
+            
+        bayesClf = BayesSearchCV(LogisticRegression(random_state=0), search_space,  cv=CV,
+                            n_iter=N_ITER,
                             scoring="accuracy",  return_train_score = False)
 
-        bayesClf.fit(X, y, callback=on_step)
+        bayesClf.fit(X, y, callback = on_step)
 
         clf = LogisticRegression(**bayesClf.best_params_, random_state=0)
         clf.fit(X, y)

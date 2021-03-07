@@ -7,6 +7,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import confusion_matrix
 
 from skopt import BayesSearchCV
+# from sklearn.model_selection import GridSearchCV
 from skopt.space import Real, Categorical, Integer
 
 

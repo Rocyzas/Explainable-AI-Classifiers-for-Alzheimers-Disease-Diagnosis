@@ -15,7 +15,7 @@ def parserTrainARGV(argv):
         help="1 for Bayes Search CV - cross validation method for automatically selecting hyperparameters giving highest accuracy;"\
             " 0 for quicker, but less precise, already manually set hyperparameters")
     parser.add_argument('-s', '--save', required = True, type=str2bool,
-        help="1 to save the models(all which were specified in the same command line);"\
+        help="1 to save the models and feature importance by weights from that classifier (all which were specified in the same command line);"\
             " 0 not to save models")
 
     args = parser.parse_args()
