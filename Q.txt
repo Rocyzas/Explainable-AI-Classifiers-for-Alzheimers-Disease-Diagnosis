@@ -1,0 +1,5 @@
+Read about LeNet
+Implement LeNet on Tabular data given dataset (can I?)
+
+Store CNN articles
+Store Hippocampal extraction articles

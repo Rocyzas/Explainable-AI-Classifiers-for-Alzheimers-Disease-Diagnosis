@@ -40,15 +40,49 @@ Made ALL variants in Exaplainer, but they arent tested yet.
 
 Shuffle fucntion works on Explain and Train, The data file is saved once.
 
+penalty C for polynomial kernel in bayessearchcv reduced. As C gets bigger, the model tries to reduce the penalty, and so takes more time to train.
+
 PART 1 TODO
 *Select Specific features, which makes biggest impact on classification | -
 *Do a separate classification on different data sets(tests, sMRI, ALS)  | -
-*Save all files only once when running program(regardless of options)   | -
+*Save all files only once when running program(regardless of options)   | o
 *Use other explanations, not only LIME, for example ELI5, or diagrams DT| -
 *Test data processing functions, models(on f score, recall, spec, sens) | -
 *Make as much functions as possible to accept and return same type      | -
 *Handle exceptions                                                      | -
-*AUC and ROC curves in %                                                | -
-*Make MCI_HC                                                            | -
+*AUC and ROC curves in % (saving scores into log)                       | o
+*Make MCI_HC                                                            | o
+*partial volume features(ADNI + Sheffield) and normalise sheffield data | o
+*better to predicct False Positive AD than False Negative in AD         | -
+*Test argv[] input (maybe inside tests)                                 | o
+*If col does not exist in drop list, just skip it, dont exit            | o
+*CHeck if the training porcess and MCI data processing is correct, since
+	it gives 0 recall and 0 TP                                      | -
+*Precision-Recall diagram containing the f-score for each tissue sample?| -
+*Rename HC, AD, MCI to GROUPS instead of classes			| -
+*Make read once in explain         for eli5 and lime                    | -
+
+PART2
+Downloaded ADNI1Screening1.5 data ~1k 3D MRI images
+Extracted Left and Right hippcampal with hippodeep-pytorch-master software
+Software Extracted eTIV, hipL, hipR cols.
+First, I extracted Subject name from it.
+Then, from extracted Subject column I merged it with ROSTER file to obtain the RID
+Then, From ADNI1_Screening_1.5T csv file by Subject I obtained Group(hc,ad,mci), Age, gender.
+Because of duplicate rows (images) I averaged data of a patient (google the reason for adni duplicates).
+
+Feature importance looks great, however, the recall is low for MCI_AD(on every classifier).
+Accuracy for all are pretty high
+
+Merged ADNI_sheff 'fulldata.csv' dataset with grouped, named it F01.csv and now model performance slightl increased.
+
 
 PART 2 TODO
+
+*For evaluation: Dice similarity coefficient(DSC), senisitivity, positive predicted values(PPV), volume error(VE).
+
+Plan Part2
+Read nii data with nibabel library and convert it to numpy array.
+Train CNN (LeNet5) on that numpy array.
+Test it
+

@@ -38,6 +38,7 @@ def clear_data(df):
     df = df.dropna(axis=1, how='all')
 
     # Exclude ID's that contains 'm'
+    # TODO: must uncomment for ADNI-shef datasrt
     df = df[~df.ID.str.contains('|'.join(['m']))]
 
     return df
@@ -74,13 +75,16 @@ def normaliseShef(df):
 def getDf(value = True):
 
     try:
-
+        '''
         # ADNI data
         merged = pd.read_csv(PATH_Demo_ADNI)
         # merged = pd.merge(merged, pd.read_csv(PATH_Neuro_ADNI), how='inner', on=['ID', 'ID'])
         merged = pd.merge(merged, pd.read_csv(PATH_ASL_ADNI), how='inner', on=['ID', 'ID'])
         merged = pd.merge(merged, pd.read_csv(PATH_sMRI_ADNI), how='inner', on=['ID', 'ID'])
+        # merged = pd.merge(merged, pd.read_csv(PATH_grouped), how='inner', on=['ID', 'ID'])
 
+        # print(merged.shape)
+        # exit()
         # Normalising sMRI data values
         SheffsMRI = normaliseShef(pd.read_csv(PATH_sMRI_Sheffield))
 
@@ -92,8 +96,12 @@ def getDf(value = True):
 
         # merging both ADNI and Sheffield datasets
         merged = pd.concat([merged, mergedSheffield], ignore_index=True)
-
+        '''
+        # merged = pd.concat([merged, p], ignore_index=True)
         # merged = pd.read_csv(PATH_synthetic)
+        # merged = pd.read_csv(PATH_grouped)
+        # merged = pd.read_csv(PATH_FINAL)
+        merged = pd.read_csv(PATH_F01)
 
     except pd.errors.EmptyDataError:
         raise pd.errors.EmptyDataError("Exception: Empty data or header is encountered")
@@ -105,7 +113,8 @@ def getDf(value = True):
 
 
 def getXY(merged, classes, fillData = pd.DataFrame()):
-
+    # merged.to_csv("NUVPX.csv", sep=',')
+    # exit()
     print("SHPE BEG:: ", merged.shape)
     doesClassContainAD = True
     if classes == 'HC_AD':
@@ -124,7 +133,6 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
         # AD = merged[['AD']].values #AD is 0 for healthy case
         doesClassContainAD = False
 
-
     # if True:
     merged = merged.drop(listFeaturesRemove, axis=1, errors='ignore')
 
@@ -140,7 +148,6 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
 
     # Do i need numeric_only=True??
     fillData=fillData.fillna(merged.mean(numeric_only=True))
-
 
     # Separate X(data) and Y(labels)
     X = merged.values

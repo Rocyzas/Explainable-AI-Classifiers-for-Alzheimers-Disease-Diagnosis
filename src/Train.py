@@ -56,7 +56,7 @@ def main(argv):
                 feature_importance(model, name, classification, XY[2])
 
     if args.save==True:
-        saveFilesOnce(df, XY[2])
+        saveFilesOnce(df)
 
 if __name__ == '__main__':
     start_time = time.time()

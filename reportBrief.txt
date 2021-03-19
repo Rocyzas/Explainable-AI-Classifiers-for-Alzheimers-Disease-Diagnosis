@@ -1,0 +1,46 @@
+Introduction(Aims, Objectives)
+	Overview
+	Aims
+	Objectives
+	Deliverables
+	Relevance to a degree programme
+
+Background Research - 11 p
+	Image Data
+	Image Pre-Processing Techniques
+	All those MRI
+	Medicine - 1p
+	Alzheimer's - 1p
+	Previous Studies - 1/2p
+	ML
+	Python libraries
+	LIME
+	
+	
+Plan - 2 p
+
+Implementation - 11 p
+	System/libs requirements
+	python version, virt env, pip
+	Data Processing
+	Implementation of Models
+	Hyperparams Selection
+	Optimisation
+	UI
+	Explainability
+	Model Accuaracy, Recall
+	Plot diagrams
+
+Evaluation - 10 p
+	Compare to prev studies?
+	Evaluation methods: f-score, recall, precision, conf matrix, accuracy, ROC/AUC
+	Compare different set of features
+	Compare hcmci, hcad, mciad
+	Observations
+
+Conclusion(with legal and ethical issues) - 3 p
+	Flaws?
+	Possible Extentions(for others)
+	Conculsion
+	
+Self Appraisal - 1 p

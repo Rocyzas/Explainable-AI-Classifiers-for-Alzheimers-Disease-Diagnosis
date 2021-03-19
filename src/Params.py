@@ -9,7 +9,12 @@ PATH_sMRI_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldP
 PATH_ASL_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_ASL.csv"
 PATH_Demo_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_Demo.csv"
 PATH_Neuro_Sheffield = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/SheffieldProspective_Neuro.csv"
+
 PATH_synthetic = os.getcwd() +  "/../DataFiles/SyntheticData.csv"
+PATH_grouped = os.getcwd() +  "/../DataFiles/grouped.csv"
+PATH_FINAL = os.getcwd() +  "/../DataFiles/FINAL.csv"
+PATH_F01 = os.getcwd() +  "/../DataFiles/F01.csv"
+
 # ADNI data sets
 PATH_sMRI_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_sMRI.csv"
 PATH_ASL_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_ASL.csv"
@@ -20,6 +25,7 @@ PATH_Neuro_ADNI = os.getcwd() +  "/../DataFiles/VPH-DARE_EXTENDED/ADNI_Neuro.csv
 saveColTemplate = "../DataFiles/Columns.csv"
 fulldata = "../DataFiles/"
 # List the features that should be removed
+# listFeaturesRemove = ['MCI', 'AD', 'ID', 'Subject']
 listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude']
 # listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'CDR']
 
@@ -28,7 +34,7 @@ valueOfBrainVolumeADNI = 1214750.869
 
 
 # ============= Classifiers =============
-N_ITER = 12
+N_ITER = 9
 CV = 5
 modelsPath = '../Models/'
 repetativeScore = 0
@@ -60,16 +66,17 @@ def saveDataFiles(classes, dfProcessed):
     dfProcessed.to_csv(fulldata + classes + '_DataUsed.csv', sep=',')
     print("Cleaned and Processed dataframe saved")
 
-def saveFilesOnce(df, columns):
+def saveFilesOnce(df):
 
     # cleaned data with with all columns and labels
     df.to_csv(fulldata + 'FullData.csv', sep=',')
 
     # columns that are used in training(except labels)
     # user should use this 'template' for explanation
-    columns = pd.DataFrame(columns = columns)
-    columns.to_csv(saveColTemplate, sep=',', index=False)
-    print("Full dataframe and columns csv file saved")
+    # columns = df.columns
+    # print(type(columns), columns)
+    # columns.to_csv(saveColTemplate, sep=',', index=False)
+    print("Full dataframe csv file saved")
 
 def logClassifier(clf, classes, score, confMatrix,  parameters, y, y_pred):
     from sklearn.metrics import roc_auc_score, recall_score
