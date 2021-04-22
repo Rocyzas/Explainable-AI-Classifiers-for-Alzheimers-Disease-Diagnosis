@@ -11,9 +11,9 @@ def parserTrainARGV(argv):
         help="Specify binary classification type: <HC_AD> - healty case(0) vs alzheimers disease(1), "\
             "<MCI_AD> - mild cognitive impairment(0) vs alzheimers disease(1),"\
             " <HC_MCI> - heatly case(0) vs mild cognitive impairment(1)")
-    parser.add_argument('-b', '--BSCV', required = True, type=str2bool,
-        help="1 for Bayes Search CV - cross validation method for automatically selecting hyperparameters giving highest accuracy;"\
-            " 0 for quicker, but less precise, already manually set hyperparameters")
+    # parser.add_argument('-b', '--BSCV', required = True, type=str2bool,
+    #     help="1 for Bayes Search CV - cross validation method for automatically selecting hyperparameters giving highest accuracy;"\
+    #         " 0 for quicker, but less precise, already manually set hyperparameters")
     parser.add_argument('-s', '--save', required = True, type=str2bool,
         help="1 to save the models and feature importance by weights from that classifier (all which were specified in the same command line);"\
             " 0 not to save models")
@@ -60,6 +60,8 @@ def checkClassification(value):
         return 'HC_MCI'
     if value.lower() in ['all', 'a']:
         return 'ALL'
+    if value.lower() in ['multi', 'm']:
+        return 'MULTI'
     else:
         raise argparse.ArgumentTypeError("Required format for binary classification: 'HC_AD' or 'MCI_AD' or 'HC_MCI' or 'ALL'")
 

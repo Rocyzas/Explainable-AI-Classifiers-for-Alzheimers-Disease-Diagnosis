@@ -47,14 +47,14 @@ class TestData(unittest.TestCase):
         assert_frame_equal(DataProcessing.clear_data(C_df_exp), C_df_exp)
 
         print("Clear Data Tested")
-
-    def test_2_shuffleZipData(self):
-        assert not np.array_equal(DataProcessing.shuffleZipData(Xval)[0], Xval)
-        assert not np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[0], Xval)
-        np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[1], XvalZ)
-        np.array_equal(DataProcessing.shuffleZipData(XvalZ)[0], XvalZ)
-
-        print("Shuffle Zip Data Tested")
+    # 
+    # def test_2_shuffleZipData(self):
+    #     assert not np.array_equal(DataProcessing.shuffleZipData(Xval)[0], Xval)
+    #     assert not np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[0], Xval)
+    #     np.array_equal(DataProcessing.shuffleZipData(Xval, XvalZ)[1], XvalZ)
+    #     np.array_equal(DataProcessing.shuffleZipData(XvalZ)[0], XvalZ)
+    #
+    #     print("Shuffle Zip Data Tested")
 
     def test_3_scaleData(self):
         # print("BV: ", Xval.reshape(-1, 1))

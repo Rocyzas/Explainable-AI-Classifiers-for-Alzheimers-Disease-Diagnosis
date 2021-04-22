@@ -17,7 +17,7 @@ cols.append("eTIV")
 cols.append("hippoL")
 cols.append( "hippoR")
 # merged = pd.merge(file, roster, how='inner', right_on=['Subject', 'PTID'])
-'''
+
 with open(finalF, mode='w') as f:
     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     writer.writerow(cols)
@@ -44,7 +44,7 @@ for inx, row in full.iterrows():
             #         writer.writerow(x)
 
 f.close()
-'''
+
 
 with open(F01, mode='w') as f:
     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)

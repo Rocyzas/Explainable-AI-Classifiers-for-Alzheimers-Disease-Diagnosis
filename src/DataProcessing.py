@@ -7,24 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import PowerTransformer
 from sklearn.preprocessing import StandardScaler
 
-
-from Params import *
-
-def shuffleZipData(X, y=[]):
-
-    if len(y)!=0:
-        combination = list(zip(X, y))
-        random.shuffle(combination)
-        X, y = zip(*combination)
-    elif len(y)==0:
-        combination = list(X)
-        random.shuffle(combination)
-        X = combination
-
-    X = np.asarray(X)
-    y = np.asarray(y)
-
-    return X, y
+from params import *
 
 def clear_data(df):
     # remove NaN rows and Exclude rows
@@ -39,14 +22,11 @@ def clear_data(df):
 
     # Exclude ID's that contains 'm'
     # TODO: must uncomment for ADNI-shef datasrt
-    df = df[~df.ID.str.contains('|'.join(['m']))]
+    # df = df[~df.ID.str.contains('|'.join(['m']))]
 
     return df
 
-# def f_importances(coef, names)
 def scaleData(df):
-    # scaler = MinMaxScaler()
-    # scaler = PowerTransformer()
     scaler = StandardScaler()
 
     scaler.fit(df)
@@ -63,6 +43,7 @@ def normaliseShef(df):
     exceptList = ['ID', 'TotalICVolume']
 
     for column in df.drop(exceptList,axis=1):
+
         # normalise data to match ADNI dataset brain region values
         df[column] = (df[column]*valueOfBrainVolumeADNI)/df['TotalICVolume']
 
@@ -71,20 +52,16 @@ def normaliseShef(df):
 
     return df
 
-# TODO: nereik nx tos value cia
-def getDf(value = True):
+def getDf():
 
     try:
-        '''
+        # '''
         # ADNI data
         merged = pd.read_csv(PATH_Demo_ADNI)
         # merged = pd.merge(merged, pd.read_csv(PATH_Neuro_ADNI), how='inner', on=['ID', 'ID'])
         merged = pd.merge(merged, pd.read_csv(PATH_ASL_ADNI), how='inner', on=['ID', 'ID'])
         merged = pd.merge(merged, pd.read_csv(PATH_sMRI_ADNI), how='inner', on=['ID', 'ID'])
-        # merged = pd.merge(merged, pd.read_csv(PATH_grouped), how='inner', on=['ID', 'ID'])
 
-        # print(merged.shape)
-        # exit()
         # Normalising sMRI data values
         SheffsMRI = normaliseShef(pd.read_csv(PATH_sMRI_Sheffield))
 
@@ -96,12 +73,12 @@ def getDf(value = True):
 
         # merging both ADNI and Sheffield datasets
         merged = pd.concat([merged, mergedSheffield], ignore_index=True)
-        '''
+        # '''
         # merged = pd.concat([merged, p], ignore_index=True)
         # merged = pd.read_csv(PATH_synthetic)
         # merged = pd.read_csv(PATH_grouped)
         # merged = pd.read_csv(PATH_FINAL)
-        merged = pd.read_csv(PATH_F01)
+        # merged = pd.read_csv(PATH_F01)
 
     except pd.errors.EmptyDataError:
         raise pd.errors.EmptyDataError("Exception: Empty data or header is encountered")
@@ -113,50 +90,105 @@ def getDf(value = True):
 
 
 def getXY(merged, classes, fillData = pd.DataFrame()):
-    # merged.to_csv("NUVPX.csv", sep=',')
-    # exit()
-    print("SHPE BEG:: ", merged.shape)
-    doesClassContainAD = True
-    if classes == 'HC_AD':
-        merged = merged[merged['MCI'] != 1] # exclude MCI 1
-        AD = merged[['AD']].values
 
-    elif classes == 'MCI_AD':
-        merged = merged[(merged['AD'] == 1) | merged['MCI'] == 1]
-        MCI =  merged[['MCI']].values
-        AD = merged[['AD']].values
+    if classes=='MULTI':
+        mcilist=[]
+        Y = []
+        [mcilist.append((int(ad), int(mci))) for ad, mci in zip(merged[['AD']].values, merged[['MCI']].values)]
+        for c in mcilist:
+            if c[0]==0 and c[1]==0:
+                Y.append(0)
+            elif c[0]==0:
+                Y.append(1)
+            elif c[1]==0:
+                Y.append(2)
+            else:
+                print("DATASET CORRUPTED. (cannot be both MCI and AD as 1)")
+                exit()
+
+    else:
+        doesClassContainAD = True
+        if classes == 'HC_AD':
+            merged = merged[merged['MCI'] != 1] # exclude MCI 1
+            AD = merged[['AD']].values
+
+        elif classes == 'MCI_AD':
+            merged = merged[(merged['AD'] == 1) | merged['MCI'] == 1]
+            MCI =  merged[['MCI']].values
+            AD = merged[['AD']].values
 
 
-    elif classes == 'HC_MCI':
-        merged = merged[merged['AD'] != 1] # exclude AD 1
-        MCI =  merged[['MCI']].values
-        # AD = merged[['AD']].values #AD is 0 for healthy case
-        doesClassContainAD = False
+        elif classes == 'HC_MCI':
+            merged = merged[merged['AD'] != 1] # exclude AD 1
+            MCI =  merged[['MCI']].values
+            # AD = merged[['AD']].values #AD is 0 for healthy case
+            doesClassContainAD = False
 
-    # if True:
+        if doesClassContainAD:
+            Y = np.asarray([int(AD[i]) for i in range(len(merged))])
+
+        elif doesClassContainAD == False:
+            # else label y=1 when MCI=1 and 0 when its HC
+            Y = np.asarray([int(MCI[i]) for i in range(len(merged))])
+
+
+
     merged = merged.drop(listFeaturesRemove, axis=1, errors='ignore')
 
     # merged = merged.filter(['RightParahippocampalGyrus', 'LeftParahippocampalGyrus',
     #                 ' Right Hippocampus', ' Left Hippocampus', ' Right PHG parahippocampal gyrus',
-    #                 ' Left PHG parahippocampal gyrus', 'RightHippocampus', 'LeftHippocampus'])
-    # merged = merged.filter([' Right PHG parahippocampal gyrus',
-    #                 ' Left PHG parahippocampal gyrus', 'RightHippocampus', 'LeftHippocampus'])
-    # columns = pd.DataFrame(columns = list(merged.columns))
-    # print("TARP: ", list(merged.columns), " IR")
-    # exit()
-    # columns.to_csv(fulldata + "LAIKINAIVISICOLUMAI.csv", sep=',')
+    #                 ' Left PHG parahippocampal gyrus', 'RightHippocampus', 'LeftHippocampus','RightAmygdala', 'LeftAmygdala'])
+    # merged = merged.filter(['RightHippocampus', 'LeftHippocampus', 'RightAmygdala', 'LeftAmygdala'])
+    # merged = merged.filter(['RightHippocampus', 'LeftHippocampus'])
+    # merged = merged.filter(['random'])
+    # print(merged)
+    # merged = merged.filter(['hippoL', 'hippoR', 'eTIV'])
+    # merged = merged.filter(['4thVentricle',
+    # 'Left Cortex',
+    # 'LeftAccumbensArea',
+    # 'LeftAmygdala',
+    # 'LeftHippocampus',
+    # 'LeftInflatVentricle',
+    # 'LeftVentralDC',
+    # 'Right Cortex',
+    # 'RightAmygdala',
+    # 'RightHippocampus',
+    # 'RightInfLatVentricle'])
 
-    # Do i need numeric_only=True??
+    # merged = merged.filter([
+    # ## '3rdVentricle',
+    # ## '4thVentricle',
+    # # 'Brainstem.1',
+    # # 'Left Cortex',
+    # # 'Right Cortex',
+    # ## 'LeftAccumbensArea',
+    # # 'RightThalamusProper',
+    # 'LeftAmygdala',
+    # 'RightAmygdala',
+    # ## 'LeftCerebralWhiteMatter',
+    # ## 'RightPallidum',
+    # 'LeftHippocampus',
+    # 'RightHippocampus',
+    # # 'LeftInflatVentricle',
+    # # 'RightInflatVentricle',
+    # # 'RightCerebellumWhiteMatter',
+    # # 'LeftPallidum',
+    # # 'RightPallidum',
+    # # 'LeftThalamusProper',
+    #
+    #
+    # ## ' CSF',
+    # ## ' Left FRP frontal pole',
+    # ## ' Background',
+    # ## ' 3rd Ventricle',
+    # ## ' Left Pallidum',
+    # ## ' Left Lateral Ventricle',
+    # ## ' Left MCgG medial orbital gyrus'
+    # ])
+
     fillData=fillData.fillna(merged.mean(numeric_only=True))
 
-    # Separate X(data) and Y(labels)
     X = merged.values
-    if doesClassContainAD:
-        Y = np.asarray([int(AD[i]) for i in range(len(merged))])
-
-    elif doesClassContainAD == False:
-        # else label y=1 when MCI=1 and 0 when its HC
-        Y = np.asarray([int(MCI[i]) for i in range(len(merged))])
 
     # Concatinate
     X = np.append(X, fillData.to_numpy().reshape((fillData.shape[0], X.shape[1])), axis = 0)
@@ -167,8 +199,5 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
     fillData = X[len(X)-len(fillData):]
 
     X = np.delete(X, np.s_[len(X)-len(fillData):len(X)], axis = 0)
-    print("LENGHT@@@@@@@@@@@@@@@@@")
-    print(X.shape, "  -  ", len(list(merged.columns)))
-    print("SHPE END:: ",merged.shape)
-    # exit()
+
     return X, Y, list(merged.columns), fillData, merged
