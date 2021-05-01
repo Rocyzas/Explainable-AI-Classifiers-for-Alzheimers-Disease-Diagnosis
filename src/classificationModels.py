@@ -99,6 +99,7 @@ class createModels(object):
     def LR(self):
         def on_step(optim_result):
             score = bayesClf.best_score_
+            print("Score: LR: ", score*100)
             if score == 1:
                 print('Max Score Achieved')
                 return True

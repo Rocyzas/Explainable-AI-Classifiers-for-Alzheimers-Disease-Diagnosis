@@ -22,7 +22,7 @@ def clear_data(df):
 
     # Exclude ID's that contains 'm'
     # TODO: must uncomment for ADNI-shef datasrt
-    # df = df[~df.ID.str.contains('|'.join(['m']))]
+    df = df[~df.ID.str.contains('|'.join(['m']))]
 
     return df
 
@@ -156,8 +156,6 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
     # 'RightInfLatVentricle'])
 
     # merged = merged.filter([
-    # ## '3rdVentricle',
-    # ## '4thVentricle',
     # # 'Brainstem.1',
     # # 'Left Cortex',
     # # 'Right Cortex',
@@ -165,27 +163,34 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
     # # 'RightThalamusProper',
     # 'LeftAmygdala',
     # 'RightAmygdala',
-    # ## 'LeftCerebralWhiteMatter',
-    # ## 'RightPallidum',
     # 'LeftHippocampus',
     # 'RightHippocampus',
-    # # 'LeftInflatVentricle',
-    # # 'RightInflatVentricle',
-    # # 'RightCerebellumWhiteMatter',
-    # # 'LeftPallidum',
-    # # 'RightPallidum',
-    # # 'LeftThalamusProper',
-    #
-    #
-    # ## ' CSF',
-    # ## ' Left FRP frontal pole',
-    # ## ' Background',
-    # ## ' 3rd Ventricle',
-    # ## ' Left Pallidum',
-    # ## ' Left Lateral Ventricle',
-    # ## ' Left MCgG medial orbital gyrus'
     # ])
 
+    # merged = merged.filter([
+    # "RightSupramarginalGyrus",
+    # "RightPrecuneus",
+    # "RightPrecentralGyrusMedialSegment",
+    # "RightPosteriorCingulateGyrus",
+    # "RightMiddleTemporalGyrus",
+    # "RightHippocampus",
+    # "RightAngularGyrus",
+    # "RightAmygdala",
+    # "Right PT planum temporale",
+    # "Right MOrG medial orbital gyrus",
+    # "LeftPrecuneus",
+    # "LeftMiddleOccipitalGyrus",
+    # "LeftHippocampus",
+    # "LeftAmygdala",
+    # "Left SPL superior parietal lobule",
+    # "Left OCP occipital pole",
+    # "Left Inf Lat Vent",
+    # "Left FRP frontal pole",
+    # "Left Cerebral White Matter",
+    # "Left Caudate",
+    # "3rd Ventricle"
+    # ])
+    print(merged.shape)
     fillData=fillData.fillna(merged.mean(numeric_only=True))
 
     X = merged.values

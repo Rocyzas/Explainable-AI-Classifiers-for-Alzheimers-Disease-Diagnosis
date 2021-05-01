@@ -4,11 +4,10 @@ from IPython.display import HTML
 from sklearn.utils import shuffle
 import math
 
-from DataProcessing import getDf, getXY
-from save_load import loadModel
+from save_load import loadModel, uniquify
 from params import *
 
-def explainLIME(rows, name, classes):
+def explainLIME(rows, name, classes, XY):
 
     print("Starting to Explain Model ", name, " on ", classes)
 
@@ -18,10 +17,6 @@ def explainLIME(rows, name, classes):
         print(name ," Model for " ,classes ," not found")
         exit()
 
-    # get dataframe of all the data for explainer
-    df = getDf()
-
-    XY = getXY(df, classes, rows)
     X, y = shuffle(XY[0], XY[1])
     columns = XY[2]
 
@@ -70,7 +65,7 @@ def explainLIME(rows, name, classes):
         explanation.save_to_file(uniquify(ExplainPath_Specific  + "/" + str(i) + "_classif_explanation.html"))
 
 # make thjis one called fro LIME
-def explainELI5(rows, name, classes):
+def explainELI5(rows, name, classes, XY):
     import eli5
     import eli5.sklearn
     from eli5 import show_weights
@@ -78,9 +73,6 @@ def explainELI5(rows, name, classes):
     from eli5.sklearn import explain_prediction_linear_classifier
     from eli5 import show_prediction
 
-    df = getDf()
-
-    XY = getXY(df, classes, rows)
     cols = XY[2]
 
     clf = loadModel(name+"-"+classes)

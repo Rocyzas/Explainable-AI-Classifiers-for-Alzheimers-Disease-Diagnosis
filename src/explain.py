@@ -5,6 +5,7 @@ import pandas as pd
 from params import *
 from PythonParser import parserExplainARGV
 from Explainer import explainLIME, explainELI5
+from DataProcessing import getDf, getXY
 
 classifiersList = ['SVM', 'LR', 'DT']
 classesList = ['HC_AD', 'MCI_AD', 'HC_MCI']
@@ -15,25 +16,32 @@ def main(argv):
     args = parserExplainARGV(argv)
     predRows = pd.read_csv(args.data)
 
+    # get dataframe of all the data for explainer
+    df = getDf()
+
     if args.classifier=='ALL' and args.classification=='ALL':
         for model in classifiersList:
             for cl in classesList:
-                explainLIME(predRows, model, cl)
-                explainELI5(predRows, model, cl)
+                XY = getXY(df, args.classification, predRows)
+                explainLIME(predRows, model, cl, XY)
+                explainELI5(predRows, model, cl, XY)
 
     elif args.classification=='ALL':
         for cl in classesList:
-            explainLIME(predRows, args.classifier, cl)
-            explainELI5(predRows, args.classifier, cl)
+            XY = getXY(df, args.classification, predRows)
+            explainLIME(predRows, args.classifier, cl, XY)
+            explainELI5(predRows, args.classifier, cl, XY)
 
     elif args.classifier=='ALL':
         for model in classifiersList:
-            explainLIME(predRows, model, args.classification)
-            explainELI5(predRows, model, args.classification)
+            XY = getXY(df, args.classification, predRows)
+            explainLIME(predRows, model, args.classification, XY)
+            explainELI5(predRows, model, args.classification, XY)
 
     else:
-        explainLIME(predRows, args.classifier, args.classification)
-        explainELI5(predRows, args.classifier, args.classification)
+        XY = getXY(df, args.classification, predRows)
+        explainLIME(predRows, args.classifier, args.classification, XY)
+        explainELI5(predRows, args.classifier, args.classification, XY)
 
 
 

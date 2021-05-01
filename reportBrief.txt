@@ -1,46 +1,113 @@
-Introduction(Aims, Objectives)
-	Overview
-	Aims
-	Objectives
-	Deliverables
-	Relevance to a degree programme
+Atsakyti visus klausimus kurie galetu iskilti markui
 
-Background Research - 11 p
-	Image Data
+Introduction(Aims, Objectives) -2p (what is the problem) -kurie buvo
+	Overview(Structure of the report)
+	Terminology
+	phase1
+		aims, objectives, deliverables
+	phase2
+		aims, objectives, deliverables
+	relevance to degree
+	
+Planning and Methodology - 2 p (how I solved the problem)
+	Time PLan(Expected (initial plan), Actual (amended plan))
+	Risk and Mitigation(Precaution table)
+		Data availability
+		Model Training/Testing time
+	Issues
+		Legal issues
+		Ethical and social issues
+		professional issues
+
+Background Research - 11 p (what has been done before) (cia daryt du subchapters part1, part2)
+	biology background - 1p
+		Hippocampus (anatomy, function, how AD affects it, prevention-treatments)
+		Alzheimer's - 1p
+	Dataset (briefly)
+		Sheffield's (what is it?)
+		ADNI	
+		Image Data
+		Feature Selection
 	Image Pre-Processing Techniques
-	All those MRI
-	Medicine - 1p
-	Alzheimer's - 1p
-	Previous Studies - 1/2p
-	ML
-	Python libraries
-	LIME
-	
-	
-Plan - 2 p
-
-Implementation - 11 p
-	System/libs requirements
-	python version, virt env, pip
-	Data Processing
-	Implementation of Models
-	Hyperparams Selection
-	Optimisation
-	UI
+	Macine Learning
+		why it fits for this data and this problem.***
+		LR
+		SVC
+		GBDT
+		Artificial Neural Network
+		Convolutional Neural Network
+		hyperparams
+		regularisation
+		
 	Explainability
-	Model Accuaracy, Recall
-	Plot diagrams
+		LIME
+		ELI5
+		Feature importance (say that they might be not considered as explanations,
+			but rather an indication of weights)
+		
+	Previous Studies - 1/2p
 
-Evaluation - 10 p
-	Compare to prev studies?
-	Evaluation methods: f-score, recall, precision, conf matrix, accuracy, ROC/AUC
-	Compare different set of features
-	Compare hcmci, hcad, mciad
+Experiments, Software Implementation - 11 p (how I implemented it and how I will test if it works)
+	Phase1
+		Methodology/Design
+			System/libs requirements 
+			Which method was used for implementing it
+			Requirements Gathering
+			idea how it should work for user
+			Add UML or something
+		Data Preparation
+			ADNI + Sheffield
+		Implementation of Classifiers
+			Hyperparameters(BayessearchCV)(regularisation)
+			All ML models implemented
+			Optimisation
+		Explainability
+			LIME
+			ELI5
+			Feature importance
+	Phase2
+		Methodology/Design
+			System/libs requirements (python version, virt env, pip)
+			Which method was used for implementing it
+			idea how it should work for user
+			Add UML or something
+		Data Preparation
+			ADNI 1.5T Screening PreProcessed images
+			How it got processed
+		Implementation of Classifiers
+			Hyperparams
+			ANN
+			CNN
+	Testing
+		Unit tests
+		Synthetic dataset(for both phases)
+		Manual testing
+		Checking model accuracy
+		All libraries are open source and well tested
+
+Evaluation, results - 10 p (how did it work in practise)
+	Explain what each metric represents
+	I need big recall! explain why? because I need FP>FN(or smth)
+	Each Model Metrics Table(Accuaracy, Recall, f-score, precision, conf matrix, ROC/AUC, MCC)
+	Plot diagrams(maybe into results section)
+		using different feature sets
+	Compare results to prev studies? (short comparison, ,because background should be done above)
+	Compare binary classification and multi class
 	Observations
 
-Conclusion(with legal and ethical issues) - 3 p
+Conclusion and Future work (with legal and ethical issues) - 3 p (did I achieve my goals and what could be done next)
+1(What was observed) 2(What did I learn and what would I have done differently)
 	Flaws?
 	Possible Extentions(for others)
 	Conculsion
+	Future treatments of alzheimers (alphafold)
 	
 Self Appraisal - 1 p
+
+Scattered ideas:
+effort - passion, challenges
+method - how is this CS related
+achievement - results, eveluation
+
+Overview in an introduction vs summary?
+(python version, virt env, pip) - situs versionus visus i appendixa

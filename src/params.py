@@ -31,7 +31,7 @@ listFeaturesRemove = ['MCI', 'AD', 'ID', 'Exclude']
 valueOfBrainVolumeADNI = 1214750.869
 
 # ============= Classifiers =============
-N_ITER = 20
+N_ITER = 16
 CV = 5
 # balanced_accuracy
 scoringMetrics = 'accuracy' #accuracy works for both binary and multi
@@ -44,12 +44,12 @@ modelsLog = "../Models/log.csv"
 ExplainPath = '../ExplainHTML/'
 
 search_spaceDT = {
-        "max_depth": Integer(5, 20),
-        "max_features": Categorical(['auto', 'sqrt','log2']),
-        "min_samples_leaf": Integer(1, 10),
-        "min_samples_split": Real(0.001, 1),
-        "n_estimators": Integer(50, 500),
-        'learning_rate':Real(0.000001, 1)
+    "max_depth": Integer(5, 20),
+    "max_features": Categorical(['auto', 'sqrt','log2']),
+    "min_samples_leaf": Integer(1, 10),
+    "min_samples_split": Real(0.001, 1),
+    "n_estimators": Integer(50, 500),
+    'learning_rate':Real(0.000001, 1)
 }
 search_spaceSVC = {
     "kernel":Categorical(['poly', 'rbf', 'sigmoid', 'linear']), #eli5 works only with linear

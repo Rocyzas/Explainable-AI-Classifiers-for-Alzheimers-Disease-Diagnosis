@@ -61,6 +61,7 @@ PART 1 TODO
 *Precision-Recall diagram containing the f-score for each tissue sample?| -
 *Rename HC, AD, MCI to GROUPS instead of classes			| -
 *Make read once in explain         for eli5 and lime                    | -
+*Implement shuffle from sklearn.utils.shuffle to automaticaly shuffle   | -
 
 PART2
 Downloaded ADNI1Screening1.5 data ~1k 3D MRI images
