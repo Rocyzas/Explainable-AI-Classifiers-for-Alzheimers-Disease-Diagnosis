@@ -1,8 +1,0 @@
-Sheffield:
-*Demo
-*Neurocognitive
-*sMRI: MRI-derived volume of different brain regions
-*ASL: MRI-derived mean perfusion values different brain regions
-
-ADNI
-
