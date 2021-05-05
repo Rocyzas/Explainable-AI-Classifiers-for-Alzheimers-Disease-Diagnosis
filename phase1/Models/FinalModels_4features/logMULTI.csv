@@ -1,0 +1,37 @@
+Classifier,Classification Groups,Accuracy,Recall,Precision,F-score,ROC_AUC,Report,Confusion Matrix,HyperParameters,Scoring Metrics,Time
+GradientBoostingClassifier,MULTI,54.09%,44.45%,53.53%,45.15%,,"              precision    recall  f1-score   support
+
+           0       0.60      0.30      0.40       162
+           1       0.54      0.80      0.64       253
+           2       0.47      0.23      0.31        86
+
+    accuracy                           0.54       501
+   macro avg       0.54      0.44      0.45       501
+weighted avg       0.55      0.54      0.51       501
+","[[ 49 112   1]
+ [ 29 202  22]
+ [  3  63  20]]","OrderedDict([('learning_rate', 0.12682309701431538), ('max_depth', 15), ('max_features', 'log2'), ('min_samples_leaf', 3), ('min_samples_split', 0.9132608321420388), ('n_estimators', 170)])",accuracy,2021-05-04 11:13:12
+LogisticRegression,MULTI,48.30%,54.14%,48.70%,48.32%,,"              precision    recall  f1-score   support
+
+           0       0.48      0.73      0.58       152
+           1       0.57      0.29      0.38       252
+           2       0.41      0.61      0.49        97
+
+    accuracy                           0.48       501
+   macro avg       0.49      0.54      0.48       501
+weighted avg       0.51      0.48      0.46       501
+","[[111  31  10]
+ [104  72  76]
+ [ 15  23  59]]","OrderedDict([('C', 4.431614388967041), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.04855001409735789)])",f1_macro,2021-05-04 11:32:52
+SVC,MULTI,51.10%,51.41%,49.76%,50.41%,,"              precision    recall  f1-score   support
+
+           0       0.49      0.51      0.50       136
+           1       0.56      0.50      0.53       260
+           2       0.44      0.52      0.48       105
+
+    accuracy                           0.51       501
+   macro avg       0.50      0.51      0.50       501
+weighted avg       0.52      0.51      0.51       501
+","[[ 70  61   5]
+ [ 64 131  65]
+ [  8  42  55]]","OrderedDict([('C', 0.6455882228556405), ('class_weight', 'balanced'), ('coef0', 0.5940398113367683), ('degree', 4), ('gamma', 0.044337394013794405), ('kernel', 'sigmoid'), ('tol', 0.054710299282964274)])",f1_macro,2021-05-04 11:39:03

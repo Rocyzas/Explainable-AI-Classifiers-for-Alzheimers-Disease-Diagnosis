@@ -1,0 +1,92 @@
+Classifier,Classification Groups,Accuracy,Recall,Precision,F-score,ROC_AUC,Report,Confusion Matrix,HyperParameters,Scoring Metrics,Time
+GradientBoostingClassifier,HC_AD,0.881632653061224,0.842696629213483,0.833333333333333,0.837988826815642,0.873271391529818,"              precision    recall  f1-score   support
+
+           0       0.91      0.90      0.91       156
+           1       0.83      0.84      0.84        89
+
+    accuracy                           0.88       245
+   macro avg       0.87      0.87      0.87       245
+weighted avg       0.88      0.88      0.88       245
+","[[141  15]
+ [ 14  75]]","OrderedDict([('learning_rate', 0.29636558849592753), ('max_depth', 5), ('max_features', 'auto'), ('min_samples_leaf', 6), ('min_samples_split', 0.5434836190639821), ('n_estimators', 500)])",f1_weighted,2021-05-04 06:55:43
+LogisticRegression,HC_AD,0.873469387755102,0.876404494382022,0.795918367346939,0.834224598930481,0.874099683088447,"              precision    recall  f1-score   support
+
+           0       0.93      0.87      0.90       156
+           1       0.80      0.88      0.83        89
+
+    accuracy                           0.87       245
+   macro avg       0.86      0.87      0.87       245
+weighted avg       0.88      0.87      0.87       245
+","[[136  20]
+ [ 11  78]]","OrderedDict([('C', 8.929301443309795), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.014000842054185406)])",f1_weighted,2021-05-04 06:55:54
+SVC,HC_AD,0.885714285714286,0.865168539325843,0.827956989247312,0.846153846153846,0.88130221838087,"              precision    recall  f1-score   support
+
+           0       0.92      0.90      0.91       156
+           1       0.83      0.87      0.85        89
+
+    accuracy                           0.89       245
+   macro avg       0.87      0.88      0.88       245
+weighted avg       0.89      0.89      0.89       245
+","[[140  16]
+ [ 12  77]]","OrderedDict([('C', 0.023729757171654712), ('class_weight', 'balanced'), ('coef0', 0.9709227721698328), ('degree', 4), ('gamma', 0.012398805973487078), ('kernel', 'linear'), ('tol', 1e-05)])",f1_weighted,2021-05-04 06:56:06
+GradientBoostingClassifier,MCI_AD,0.746478873239437,0.045977011494253,0.363636363636364,0.081632653061225,0.509928804254589,"              precision    recall  f1-score   support
+
+           0       0.76      0.97      0.85       268
+           1       0.36      0.05      0.08        87
+
+    accuracy                           0.75       355
+   macro avg       0.56      0.51      0.47       355
+weighted avg       0.66      0.75      0.66       355
+","[[261   7]
+ [ 83   4]]","OrderedDict([('learning_rate', 0.003135212580884261), ('max_depth', 10), ('max_features', 'sqrt'), ('min_samples_leaf', 8), ('min_samples_split', 0.005469135621723014), ('n_estimators', 283)])",accuracy,2021-05-04 07:22:19
+LogisticRegression,MCI_AD,0.687323943661972,0.735632183908046,0.421052631578947,0.535564853556485,0.703636987476411,"              precision    recall  f1-score   support
+
+           0       0.89      0.67      0.76       268
+           1       0.42      0.74      0.54        87
+
+    accuracy                           0.69       355
+   macro avg       0.65      0.70      0.65       355
+weighted avg       0.77      0.69      0.71       355
+","[[180  88]
+ [ 23  64]]","OrderedDict([('C', 1.2600165726453065), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.09085874669885648)])",accuracy,2021-05-04 07:22:29
+SVC,MCI_AD,0.749295774647887,0.103448275862069,0.45,0.168224299065421,0.531201749871333,"              precision    recall  f1-score   support
+
+           0       0.77      0.96      0.85       268
+           1       0.45      0.10      0.17        87
+
+    accuracy                           0.75       355
+   macro avg       0.61      0.53      0.51       355
+weighted avg       0.69      0.75      0.68       355
+","[[257  11]
+ [ 78   9]]","OrderedDict([('C', 1e-06), ('class_weight', 'balanced'), ('coef0', 0.7077353304595392), ('degree', 9), ('gamma', 0.1), ('kernel', 'poly'), ('tol', 0.07982044499436966)])",accuracy,2021-05-04 07:22:44
+GradientBoostingClassifier,HC_MCI,0.683168316831683,0.829457364341085,0.718120805369127,0.76978417266187,0.62705744929383,"              precision    recall  f1-score   support
+
+           0       0.58      0.42      0.49       146
+           1       0.72      0.83      0.77       258
+
+    accuracy                           0.68       404
+   macro avg       0.65      0.63      0.63       404
+weighted avg       0.67      0.68      0.67       404
+","[[ 62  84]
+ [ 44 214]]","OrderedDict([('learning_rate', 0.36204994985324784), ('max_depth', 5), ('max_features', 'auto'), ('min_samples_leaf', 10), ('min_samples_split', 1.0), ('n_estimators', 50)])",accuracy,2021-05-04 07:28:41
+LogisticRegression,HC_MCI,0.698019801980198,0.713178294573643,0.793103448275862,0.751020408163265,0.692205585642986,"              precision    recall  f1-score   support
+
+           0       0.57      0.67      0.62       146
+           1       0.79      0.71      0.75       258
+
+    accuracy                           0.70       404
+   macro avg       0.68      0.69      0.68       404
+weighted avg       0.71      0.70      0.70       404
+","[[ 98  48]
+ [ 74 184]]","OrderedDict([('C', 0.21535664833996365), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.09991204067749963)])",accuracy,2021-05-04 07:28:50
+SVC,HC_MCI,0.680693069306931,0.678294573643411,0.791855203619909,0.730688935281837,0.681613040246363,"              precision    recall  f1-score   support
+
+           0       0.55      0.68      0.61       146
+           1       0.79      0.68      0.73       258
+
+    accuracy                           0.68       404
+   macro avg       0.67      0.68      0.67       404
+weighted avg       0.70      0.68      0.69       404
+","[[100  46]
+ [ 83 175]]","OrderedDict([('C', 0.9081476712272699), ('class_weight', 'balanced'), ('coef0', 0.9665008641065292), ('degree', 6), ('gamma', 0.036688415540345), ('kernel', 'rbf'), ('tol', 0.06956803223465564)])",accuracy,2021-05-04 07:29:06
+STOPs,,,,,,,,,,,

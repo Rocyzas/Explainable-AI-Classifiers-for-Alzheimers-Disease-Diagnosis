@@ -1,0 +1,206 @@
+
+    <style>
+    table.eli5-weights tr:hover {
+        filter: brightness(85%);
+    }
+</style>
+
+
+
+    
+        <p>Explained as: linear model</p>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+        
+        <pre>
+Features with largest coefficients.
+Caveats:
+1. Be careful with features which are not
+   independent - weights don't show their importance.
+2. If scale of input features is different then scale of coefficients
+   will also be different, making direct comparison between coefficient values
+   incorrect.
+3. Depending on regularization, rare features sometimes may have high
+   coefficients; this doesn't mean they contribute much to the
+   classification result for most examples.
+</pre>
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+    
+        
+
+    
+
+        
+            
+                
+                
+    
+        <p style="margin-bottom: 0.5em; margin-top: 0em">
+            <b>
+    
+        y=1
+    
+</b>
+
+top features
+        </p>
+    
+    <table class="eli5-weights"
+           style="border-collapse: collapse; border: none; margin-top: 0em; table-layout: auto; margin-bottom: 2em;">
+        <thead>
+        <tr style="border: none;">
+            
+                <th style="padding: 0 1em 0 0.5em; text-align: right; border: none;" title="Feature weights. Note that weights do not account for feature value scales, so if feature values have different scales, features with highest weights might not be the most important.">
+                    Weight<sup>?</sup>
+                </th>
+            
+            <th style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">Feature</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        
+            <tr style="background-color: hsl(120, 100.00%, 92.79%); border: none;">
+    <td style="padding: 0 1em 0 0.5em; text-align: right; border: none;">
+        +0.050
+    </td>
+    <td style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">
+        RightHippocampus
+    </td>
+    
+</tr>
+        
+        
+
+        
+        
+            <tr style="background-color: hsl(0, 100.00%, 90.77%); border: none;">
+    <td style="padding: 0 1em 0 0.5em; text-align: right; border: none;">
+        -0.071
+    </td>
+    <td style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">
+        &lt;BIAS&gt;
+    </td>
+    
+</tr>
+        
+            <tr style="background-color: hsl(0, 100.00%, 90.10%); border: none;">
+    <td style="padding: 0 1em 0 0.5em; text-align: right; border: none;">
+        -0.079
+    </td>
+    <td style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">
+        LeftAmygdala
+    </td>
+    
+</tr>
+        
+            <tr style="background-color: hsl(0, 100.00%, 80.40%); border: none;">
+    <td style="padding: 0 1em 0 0.5em; text-align: right; border: none;">
+        -0.208
+    </td>
+    <td style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">
+        RightAmygdala
+    </td>
+    
+</tr>
+        
+            <tr style="background-color: hsl(0, 100.00%, 80.00%); border: none;">
+    <td style="padding: 0 1em 0 0.5em; text-align: right; border: none;">
+        -0.214
+    </td>
+    <td style="padding: 0 0.5em 0 0.5em; text-align: left; border: none;">
+        LeftHippocampus
+    </td>
+    
+</tr>
+        
+
+        </tbody>
+    </table>
+
+            
+        
+
+        
+
+
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+

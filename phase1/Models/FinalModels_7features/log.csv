@@ -1,0 +1,157 @@
+Classifier,Classification Groups,Accuracy,Recall,Precision,F-score,ROC_AUC,Report,Confusion Matrix,HyperParameters,Scoring Metrics,Time
+GradientBoostingClassifier,MULTI,0.5588822355289421,0.4105499438832772,0.6006958822176213,0.3906175291478171,,"              precision    recall  f1-score   support
+
+           0       0.53      0.32      0.40       132
+           1       0.56      0.86      0.68       270
+           2       0.71      0.05      0.09        99
+
+    accuracy                           0.56       501
+   macro avg       0.60      0.41      0.39       501
+weighted avg       0.58      0.56      0.49       501
+","[[ 42  90   0]
+ [ 35 233   2]
+ [  3  91   5]]","OrderedDict([('learning_rate', 0.002155348137500224), ('max_depth', 6), ('max_features', 'sqrt'), ('min_samples_leaf', 9), ('min_samples_split', 0.056140390698376945), ('n_estimators', 434)])",accuracy,2021-05-04 20:18:26
+LogisticRegression,MULTI,0.4590818363273453,0.5438832772166106,0.4823398333886475,0.46395708373856026,,"              precision    recall  f1-score   support
+
+           0       0.42      0.71      0.53       132
+           1       0.63      0.26      0.37       270
+           2       0.39      0.66      0.49        99
+
+    accuracy                           0.46       501
+   macro avg       0.48      0.54      0.46       501
+weighted avg       0.53      0.46      0.44       501
+","[[ 94  21  17]
+ [115  71  84]
+ [ 14  20  65]]","OrderedDict([('C', 0.1), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.1)])",accuracy,2021-05-04 20:18:55
+SVC,MULTI,0.2634730538922156,0.3333333333333333,0.08782435129740519,0.13902053712480253,,"              precision    recall  f1-score   support
+
+           0       0.26      1.00      0.42       132
+           1       0.00      0.00      0.00       270
+           2       0.00      0.00      0.00        99
+
+    accuracy                           0.26       501
+   macro avg       0.09      0.33      0.14       501
+weighted avg       0.07      0.26      0.11       501
+","[[132   0   0]
+ [270   0   0]
+ [ 99   0   0]]","OrderedDict([('C', 0.5482431042812154), ('class_weight', 'balanced'), ('coef0', 1.0), ('degree', 10), ('gamma', 1e-05), ('kernel', 'sigmoid'), ('tol', 0.1)])",accuracy,2021-05-04 20:19:42
+GradientBoostingClassifier,MULTI,0.5249500998003992,0.3333333333333333,0.17498336660013306,0.22949389179755675,,"              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       145
+           1       0.52      1.00      0.69       263
+           2       0.00      0.00      0.00        93
+
+    accuracy                           0.52       501
+   macro avg       0.17      0.33      0.23       501
+weighted avg       0.28      0.52      0.36       501
+","[[  0 145   0]
+ [  0 263   0]
+ [  0  93   0]]","OrderedDict([('learning_rate', 1e-06), ('max_depth', 5), ('max_features', 'auto'), ('min_samples_leaf', 10), ('min_samples_split', 1.0), ('n_estimators', 50)])",recall_weighted,2021-05-04 20:27:48
+LogisticRegression,MULTI,0.47704590818363274,0.554332772695381,0.4932864279269508,0.48085871562041343,,"              precision    recall  f1-score   support
+
+           0       0.45      0.69      0.55       145
+           1       0.63      0.29      0.39       263
+           2       0.40      0.69      0.50        93
+
+    accuracy                           0.48       501
+   macro avg       0.49      0.55      0.48       501
+weighted avg       0.54      0.48      0.46       501
+","[[100  29  16]
+ [106  75  82]
+ [ 14  15  64]]","OrderedDict([('C', 4.396344851765935), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.09507575159105319)])",recall_weighted,2021-05-04 20:28:15
+SVC,MULTI,0.500998003992016,0.5216041106557396,0.4876727872911079,0.49826088522738887,,"              precision    recall  f1-score   support
+
+           0       0.45      0.46      0.46       145
+           1       0.57      0.48      0.52       263
+           2       0.44      0.62      0.52        93
+
+    accuracy                           0.50       501
+   macro avg       0.49      0.52      0.50       501
+weighted avg       0.51      0.50      0.50       501
+","[[ 67  67  11]
+ [ 75 126  62]
+ [  6  29  58]]","OrderedDict([('C', 0.7423910144581195), ('class_weight', 'balanced'), ('coef0', 0.9071879565877549), ('degree', 9), ('gamma', 0.03623249957768748), ('kernel', 'sigmoid'), ('tol', 0.021061709826069246)])",recall_weighted,2021-05-04 20:28:54
+GradientBoostingClassifier,MULTI,0.5209580838323353,0.3333333333333333,0.17365269461077845,0.2283464566929134,,"              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       143
+           1       0.52      1.00      0.69       261
+           2       0.00      0.00      0.00        97
+
+    accuracy                           0.52       501
+   macro avg       0.17      0.33      0.23       501
+weighted avg       0.27      0.52      0.36       501
+","[[  0 143   0]
+ [  0 261   0]
+ [  0  97   0]]","OrderedDict([('learning_rate', 1e-06), ('max_depth', 5), ('max_features', 'sqrt'), ('min_samples_leaf', 1), ('min_samples_split', 0.001), ('n_estimators', 500)])",roc_auc_ovo_weighted,2021-05-04 20:40:10
+LogisticRegression,MULTI,0.46107784431137727,0.5440753897917069,0.472262941736626,0.4667809042809043,,"              precision    recall  f1-score   support
+
+           0       0.46      0.68      0.55       143
+           1       0.56      0.25      0.35       261
+           2       0.39      0.70      0.50        97
+
+    accuracy                           0.46       501
+   macro avg       0.47      0.54      0.47       501
+weighted avg       0.50      0.46      0.44       501
+","[[ 97  32  14]
+ [102  66  93]
+ [ 10  19  68]]","OrderedDict([('C', 10.0), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.1)])",roc_auc_ovo_weighted,2021-05-04 20:41:13
+GradientBoostingClassifier,MULTI,0.5289421157684631,0.3333333333333333,0.1763140385894877,0.23063533507397738,,"              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       140
+           1       0.53      1.00      0.69       265
+           2       0.00      0.00      0.00        96
+
+    accuracy                           0.53       501
+   macro avg       0.18      0.33      0.23       501
+weighted avg       0.28      0.53      0.37       501
+","[[  0 140   0]
+ [  0 265   0]
+ [  0  96   0]]","OrderedDict([('learning_rate', 0.0015937448998155327), ('max_depth', 7), ('max_features', 'sqrt'), ('min_samples_leaf', 4), ('min_samples_split', 0.9995716747306301), ('n_estimators', 488)])",roc_auc_ovr_weighted,2021-05-04 20:57:50
+LogisticRegression,MULTI,0.4810379241516966,0.5570773435160228,0.4875487473889936,0.4889013719057051,,"              precision    recall  f1-score   support
+
+           0       0.47      0.67      0.55       140
+           1       0.58      0.30      0.40       265
+           2       0.41      0.70      0.52        96
+
+    accuracy                           0.48       501
+   macro avg       0.49      0.56      0.49       501
+weighted avg       0.52      0.48      0.46       501
+","[[94 36 10]
+ [99 80 86]
+ [ 8 21 67]]","OrderedDict([('C', 5.3778570815616025), ('class_weight', 'balanced'), ('multi_class', 'multinomial'), ('penalty', 'l2'), ('solver', 'saga'), ('tol', 0.0666907850168164)])",roc_auc_ovr_weighted,2021-05-04 20:58:17
+SVC,MULTI,0.4870259481037924,0.5618826919501766,0.4953626839085148,0.48200778400643124,,"              precision    recall  f1-score   support
+
+           0       0.51      0.75      0.61       163
+           1       0.59      0.24      0.35       250
+           2       0.38      0.69      0.49        88
+
+    accuracy                           0.49       501
+   macro avg       0.50      0.56      0.48       501
+weighted avg       0.53      0.49      0.46       501
+","[[122  26  15]
+ [105  61  84]
+ [ 11  16  61]]","OrderedDict([('C', 0.48891500659188214), ('class_weight', 'balanced'), ('coef0', 0.3418414849723627), ('degree', 4), ('gamma', 0.07837409082861128), ('kernel', 'linear'), ('tol', 0.04450557865571974)])",f1_macro,2021-05-04 21:03:43
+SVC,MULTI,0.5129740518962076,0.5234282625586973,0.502133564224543,0.5079247861135143,,"              precision    recall  f1-score   support
+
+           0       0.51      0.44      0.47       156
+           1       0.55      0.53      0.54       253
+           2       0.45      0.61      0.52        92
+
+    accuracy                           0.51       501
+   macro avg       0.50      0.52      0.51       501
+weighted avg       0.52      0.51      0.51       501
+","[[ 68  81   7]
+ [ 59 133  61]
+ [  7  29  56]]","OrderedDict([('C', 0.3166805586649419), ('class_weight', 'balanced'), ('coef0', 1.0), ('degree', 7), ('gamma', 0.06889390876662305), ('kernel', 'sigmoid'), ('tol', 1e-05)])",f1_macro,2021-05-04 21:04:29
+SVC,MULTI,0.47904191616766467,0.5329373803664206,0.47599488346182667,0.4819604133900424,,"              precision    recall  f1-score   support
+
+           0       0.50      0.66      0.57       159
+           1       0.53      0.31      0.39       250
+           2       0.39      0.63      0.49        92
+
+    accuracy                           0.48       501
+   macro avg       0.48      0.53      0.48       501
+weighted avg       0.50      0.48      0.46       501
+","[[105  43  11]
+ [ 95  77  78]
+ [  9  25  58]]","OrderedDict([('C', 0.15134022506645015), ('class_weight', 'balanced'), ('coef0', 0.0), ('degree', 4), ('gamma', 0.09003511962877206), ('kernel', 'sigmoid'), ('tol', 0.1)])",f1_macro,2021-05-04 21:05:18
