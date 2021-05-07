@@ -73,28 +73,24 @@ def convertTo2D(projection):
         i+=1
         print(i)
 
-    # constants, since classifiers are trained on these
-    x_max = 42
-    y_max = 52
-
     halfLength = int(len(array_of_2d_images)/2) #since len array_of_2d_images is always even
 
     for i in range(halfLength):
         # always restarting array back to 0's
-        result = np.zeros([x_max, y_max])
+        result = np.zeros([XMAX_CONST, YMAX_CONST])
         x_min=array_of_2d_images[i].shape[0]
         y_min=array_of_2d_images[i].shape[1]
-        result[int((x_max-x_min)/2):int(x_max-(x_max-x_min)/2), int((y_max-y_min)/2):int(y_max-(y_max-y_min)/2)] = array_of_2d_images[i]
+        result[int((XMAX_CONST-x_min)/2):int(XMAX_CONST-(XMAX_CONST-x_min)/2), int((YMAX_CONST-y_min)/2):int(YMAX_CONST-(YMAX_CONST-y_min)/2)] = array_of_2d_images[i]
 
         # getting the last element of a path (the exact name of a file)
         splt_fileName = (arrayOfPathsL[i].rsplit('/', 1)[1]).split('.')[0]
         np.save(PATHSAVE+splt_fileName, result.astype(int))
 
 
-        result = np.zeros([x_max, y_max])
+        result = np.zeros([XMAX_CONST, YMAX_CONST])
         x_min=array_of_2d_images[i+halfLength].shape[0]
         y_min=array_of_2d_images[i+halfLength].shape[1]
-        result[int((x_max-x_min)/2):int(x_max-(x_max-x_min)/2), int((y_max-y_min)/2):int(y_max-(y_max-y_min)/2)] = array_of_2d_images[i+halfLength]
+        result[int((XMAX_CONST-x_min)/2):int(XMAX_CONST-(XMAX_CONST-x_min)/2), int((YMAX_CONST-y_min)/2):int(YMAX_CONST-(YMAX_CONST-y_min)/2)] = array_of_2d_images[i+halfLength]
 
         splt_fileName = (arrayOfPathsR[i].rsplit('/', 1)[1]).split('.')[0]
         np.save(PATHSAVE+splt_fileName, result.astype(int))

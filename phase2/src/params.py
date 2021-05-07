@@ -13,6 +13,11 @@ FINALPRED = "../testUserImage/finalPredictions.csv"
 # REMOVING
 REMOVEFILES = "rm *_brain_mask.nii.gz *_cerebrum_mask.nii.gz *.npy *.warning.txt *_hippoLR_volumes.csv *_mask_*.nii.gz"
 
+
+# constants, since classifiers are trained on these
+XMAX_CONST = 42
+YMAX_CONST = 52
+
 # SELECT CLASSIFICATION(multi, AD, MCI, CN) METHOD
 # AD - removes AD cases, keeping MCI vs. CN
 # MCI - removes MCI cases, keeping AD vs. CN

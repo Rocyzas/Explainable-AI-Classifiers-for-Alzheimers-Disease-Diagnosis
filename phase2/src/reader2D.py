@@ -5,12 +5,16 @@ import statistics
 import os
 import glob
 
-# temporary path
-# pathSaveL ="/media/rokas/HDD/ADNI/Processed2DHippocampalLeftMaxA/"
-# pathSaveR ="/media/rokas/HDD/ADNI/Processed2DHippocampalRightMaxA/"
+
+
+
+# these are absolute paths on my machine
+''' =================ONLY BEFORE TRAINING, TO SAVE ADNI IMAGES AS PROCESSED 2D HIPPOCAMPUS npy ARRAYS================ '''
 pathSave ="/media/rokas/HDD/Phase2/Hippocampus2Dmax/"#UNCOMMENT THIS ONE to save
 # pathSave ="/media/rokas/HDD/Phase2/Hippocampus2Dmean/"#UNCOMMENT THIS ONE to save
 # pathSave ="/media/rokas/HDD/Phase2/Hippocampus2Dstd/"#UNCOMMENT THIS ONE to save
+
+ADNIIMAGES = "/media/rokas/HDD/ADNI/temp/"
 
 pathL = "*_mask_L.nii.gz"
 pathR = "*_mask_R.nii.gz"
@@ -23,10 +27,10 @@ def Dimentionality_Reduction():
     i=0
     arrayOfPathsL=[]
     # [arrayOfPathsL.append(file) for file in sorted(glob.glob("/media/rokas/HDD/testADNICase/progressofReaders/"+pathL))]
-    [arrayOfPathsL.append(file) for file in sorted(glob.glob("/media/rokas/HDD/ADNI/temp/"+pathL))]
+    [arrayOfPathsL.append(file) for file in sorted(glob.glob(ADNIIMAGES+pathL))]
     arrayOfPathsR=[]
     # [arrayOfPathsR.append(file) for file in sorted(glob.glob("/media/rokas/HDD/testADNICase/progressofReaders/"+pathR))]
-    [arrayOfPathsR.append(file) for file in sorted(glob.glob("/media/rokas/HDD/ADNI/temp/"+pathR))]
+    [arrayOfPathsR.append(file) for file in sorted(glob.glob(ADNIIMAGES+pathR))]
 
     for file in arrayOfPathsL:
 

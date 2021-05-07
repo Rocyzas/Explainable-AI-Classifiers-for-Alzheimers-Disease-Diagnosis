@@ -5,19 +5,20 @@ import csv
 from sklearn.utils import shuffle
 from sklearn.preprocessing import LabelEncoder
 
+# function called before training
 def data_processing(TwoD=True):
 
-    pathR = '/media/rokas/HDD/Phase2/SyntheticData'
+    pathR = '/media/rokas/HDD/Phase2/SyntheticDataBinary'
+    pathR = '/media/rokas/HDD/Phase2/SyntheticDataMulti'
 
     arrayOfNPY=[]
 
     for filePath in sorted(glob.glob(pathR + "/*.csv")):
-        # print(filePath)
         arrayOfNPY.append(np.genfromtxt(filePath, delimiter=','))
 
-    '''RIGHT'''
     X=arrayOfNPY
-    Y=[1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #correct  labels
+    Y=[1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #correct  labels binary
+    # Y=[2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0] #correct  labels multi-class
     # Y=[0,1,0,1,1,0,1,0,1,1,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0,0,1,1] #random labels
 
     # one hot encode

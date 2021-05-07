@@ -84,6 +84,7 @@ def navigation(currentProj, typeExclude):
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
 
     # For cross validation
+    # 25% of remaining 80% of a data is used for validation, hence it mades 20% of total data
     X_train_P, X_test_P, Y_train_P, Y_test_P = train_test_split(X_train, Y_train, test_size=0.25, random_state=2)
 
 
@@ -97,11 +98,12 @@ def navigation(currentProj, typeExclude):
 
 
     X, Y = data_processing(True, iProj, typeExclude)
-    
+
     # For final testing
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
 
     # For cross validation
+    # 25% of remaining 80% of a data is used for validation, hence it mades 20% of total data
     X_train_P, X_test_P, Y_train_P, Y_test_P = train_test_split(X_train, Y_train, test_size=0.25, random_state=2)
 
     modelCreatorObjforMLP = createNNModels(X_train_P, X_test_P, Y_train_P, Y_test_P)

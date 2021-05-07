@@ -20,9 +20,10 @@ from sklearn.preprocessing import LabelEncoder
 
 from params import *
 
-def data_processing(TwoD=True, iProjection=None, typeExclude=None):
+def data_processing(TwoD=True, iProjection='mean', typeExclude=None):
 
     pathR = pathHippocampusofProjection + iProjection
+
     # pathR = '/media/rokas/HDD/ADNI/HippoTest' #60x60
     # pathLabels = "/media/rokas/HDD/ADNI/ADNI1_Screening_1.5T_3_21_2021.csv"
 
