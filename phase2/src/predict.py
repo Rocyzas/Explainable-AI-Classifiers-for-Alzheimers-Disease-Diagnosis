@@ -103,6 +103,36 @@ def convertTo2D(projection):
 
     return
 
+def decode(yn, classes):
+    y=[]
+
+    for i in range(len(yn)):
+        if classes=="CN":
+            if yn[i]==1:
+                prediction = "Mild Cognitive Impairment"
+            else:
+                prediction = "Alzheimer's Disease"
+        elif classes=="MCI":
+            if yn[i]==1:
+                prediction = "Healthy Case"
+            else:
+                prediction = "Alzheimer's Disease"
+        elif classes=="AD":
+            if yn[i]==0:#if CN
+                prediction = "Healthy Case"
+            else:
+                prediction = "Mild Cognitive Impairment"
+        elif classes=="multi":
+            if yn[i]==1:
+                prediction = "Healthy Case"
+            elif yn[i]==2:
+                prediction = "Mild Cognitive Impairment"
+            else:
+                prediction = "Alzheimer's Disease"
+        y.append(prediction)
+        # print("PREDICTION ", i, "-", prediction)
+
+    return y
 
 def predictMLPC(X, arg, projection):
 
@@ -121,7 +151,7 @@ def predictMLPC(X, arg, projection):
         case = case.reshape(1, -1)
         y.append(clf.predict(case))
 
-    return y
+    return decode(y, arg)
 
 def predictLeNet(X, arg, projection):
     model = keras.models.load_model(MODELSLOCATION+"LeNet_"+arg + "_"+projection)
@@ -131,7 +161,7 @@ def predictLeNet(X, arg, projection):
         case = case[np.newaxis, ..., np.newaxis]
         y.append(model.predict_classes(case))
 
-    return y
+    return decode(y, arg)
 
 def loadImgs():
     # path = os.chdir('/'.join(IMAGESPATH.split('/')[:-1]))
@@ -142,58 +172,79 @@ def loadImgs():
 
     for filePath in sorted(glob.glob(path + "/*.npy")):
         ''' wond work with different file names so either remove at all or change'''
-        splt_fileName = '_'.join(((filePath.rsplit('/', 1)[1]).split('.')[0]).split('_')[1:4])
+        # splt_fileName = '_'.join(((filePath.rsplit('/', 1)[1]).split('.')[0]).split('_')[1:4])
 
         arrayOfNPY.append(np.load(filePath))
-        arraySubject.append(splt_fileName)
+        arraySubject.append(filePath)
 
     return arrayOfNPY, arraySubject
 
-def saveResults(y, name, clf):
+def saveResults(y, name, clf, proj, group):
     # how many cases to be explained
 
     if os.path.exists(MODELSLOG)!=True:
         with open(MODELSLOG, mode='w') as f:
             writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(["Name", "Predicted class", "Classifier"])
+            writer.writerow(["Subject", "Diagnosis", "Classifier", "Projection", "Excluded_Group"])
             f.close()
 
     # append existing 'MODELSLOG' file
     with open(MODELSLOG, mode='a+') as file_object:
         writer = csv.writer(file_object, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for i in range(len(y)):
-            writer.writerow([name[i], y[i], clf])
+            writer.writerow([name[i], y[i], clf, proj, group])
 
     file_object.close()
 
     return
 
 
-def removingAllExeptPredictingfiles():
-    # os.chdir('/'.join(IMAGESPATH.split('/')[:-1]))
+def removingAllExeptPredictingfiles(val = False):
     os.chdir(IMAGESPATH[:-1])
 
-    # os.system(REMOVEFILES)
-    os.system("ls -l")
+    os.system(REMOVEFILES)
+    if val==True:
+        os.system(REMOVEFILES+" "+MODELSLOG.split("/")[-1])
+    # os.system("ls -l")
     print(os.getcwd())
 
+
+def generalise():
+    import pandas as pd
+    df = pd.read_csv(MODELSLOG)
+
+    # To combine both L and R hippocampus predictions
+    df["Subject"] = df["Subject"].str.replace('_mask_L.npy', '.npy')
+    df["Subject"] = df["Subject"].str.replace('_mask_R.npy', '.npy')
+
+    with open(FINALPRED, mode='w') as f:
+        writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["Subject", "Diagnosis"])
+
+        for name in df["Subject"].unique():
+            g = df.groupby(['Subject'])
+            print(g.get_group(name).Diagnosis.mode()[0])
+
+            writer.writerow([name[:-4].split("/")[-1], g.get_group(name).Diagnosis.mode()[0]])
+
+        f.close()
 
 if __name__ == '__main__':
     start_time = time.time()
 
-    removingAllExeptPredictingfiles()
+    removingAllExeptPredictingfiles(True)
 
     hippodeepToTwoHippos()
     for proj in PROJECTIONS:
-
         convertTo2D(proj)
 
         X, names = loadImgs()
 
-        saveResults(predictMLPC(X, CLASSIFICATION, proj), names, "MLPC")
-
-        saveResults(predictLeNet(X, CLASSIFICATION, proj), names, "LeNet")
+        for cl in CLASSIFICATION:
+            saveResults(predictMLPC(X, cl, proj), names, "MLPC", proj, cl)
+            saveResults(predictLeNet(X, cl, proj), names, "LeNet", proj, cl)
 
     removingAllExeptPredictingfiles()
+    generalise()
 
     print("--- %.2f seconds ---" % (time.time() - start_time))

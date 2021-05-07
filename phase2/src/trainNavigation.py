@@ -97,7 +97,7 @@ def navigation(currentProj, typeExclude):
 
 
     X, Y = data_processing(True, iProj, typeExclude)
-    # X, Y = performScaling(X, Y)
+    
     # For final testing
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
 

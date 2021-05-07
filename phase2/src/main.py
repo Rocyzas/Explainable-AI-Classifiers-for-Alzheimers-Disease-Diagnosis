@@ -9,8 +9,6 @@ if __name__ == '__main__':
     # typeExclude = ["multi", "AD", "MCI", "CN"]
     typeExclude = ["multi"]
 
-    # currentProj = ["mean", "max"]
-    # typeExclude = ["CN"]
 
     for proj in currentProj:
         for typ in typeExclude:

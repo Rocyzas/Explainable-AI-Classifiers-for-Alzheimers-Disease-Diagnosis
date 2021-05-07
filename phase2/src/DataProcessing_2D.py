@@ -22,11 +22,9 @@ from params import *
 
 def data_processing(TwoD=True, iProjection=None, typeExclude=None):
 
-    # pathL = '/media/rokas/HDD/ADNI/Processed2DHippocampalLeftMax'
-    # pathR = '/media/rokas/HDD/ADNI/Processed2DHippocampalRightMax'
-    pathR = pathHippocampus + iProjection
+    pathR = pathHippocampusofProjection + iProjection
     # pathR = '/media/rokas/HDD/ADNI/HippoTest' #60x60
-    pathLabels = "/media/rokas/HDD/ADNI/ADNI1_Screening_1.5T_3_21_2021.csv"
+    # pathLabels = "/media/rokas/HDD/ADNI/ADNI1_Screening_1.5T_3_21_2021.csv"
 
     arrayOfNPY = []
     arraySubject = [] #Names of subject
@@ -34,7 +32,7 @@ def data_processing(TwoD=True, iProjection=None, typeExclude=None):
     arrayLabels = []
     arraySubjectsGroups = []
 
-    with open(pathLabels) as csv_file:
+    with open(pathToADNILabels) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader) #skipping first line
         seen = []

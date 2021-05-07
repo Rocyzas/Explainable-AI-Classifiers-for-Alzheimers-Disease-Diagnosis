@@ -41,17 +41,17 @@ class createNNModels(object):
     def createModelLeNet(self, outputs=False):
         from tensorflow.keras.metrics import Accuracy
         model = models.Sequential()
-        model.add(layers.Conv2D(filters=8, kernel_size=(2,2), activation='relu',
+        model.add(layers.Conv2D(filters=6, kernel_size=(2,2), activation='relu',
                     input_shape=(self.X_train.shape[1],self.X_train.shape[2],1)))
         model.add(layers.AveragePooling2D())
         model.add(layers.Dropout(0.2))
-        model.add(layers.Conv2D(filters=20, kernel_size=(2,2), activation='relu'))
+        model.add(layers.Conv2D(filters=16, kernel_size=(2,2), activation='relu'))
         model.add(layers.AveragePooling2D())
         model.add(layers.Dropout(0.2))
         model.add(layers.Flatten())
         # model.add(layers.Dense(units=512, activation='relu'))# should not be too large 512is ok
         model.add(layers.Dense(units=512, activation='relu'))
-        model.add(layers.Dense(units=120, activation='relu'))
+        model.add(layers.Dense(units=112, activation='relu'))
         # model.add(layers.Dense(units=112, activation='relu')) # witg 256 is ok
 
         "OUTPUT UNITS (BINARY - 2, MULTI-CLASS - 3)"
@@ -63,8 +63,8 @@ class createNNModels(object):
                       loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
                       metrics="accuracy")
 
-        # plot_model(model, to_file='/media/rokas/HDD/Phase2/model.png', show_shapes=True,show_layer_names=True)
-        # exit()
+        plot_model(model, to_file=FILETOSAVESUMMARY_LENET, show_shapes=True,show_layer_names=True)
+        exit()
         history = model.fit(self.X_train, self.y_train,
                             batch_size=BATCH_SIZE,
                             epochs=EPOCHS,
