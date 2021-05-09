@@ -1,89 +1,29 @@
 # Explainable-AI-Classifiers-for-Alzheimers-Disease-Diagnosis
-python3 Model.py 'clasisfier' 'classification_method' '0/1(explainability)'
+Phase 1
 
-What I did:
-Kernel function - linear and poly gives the best results - ~80% with all data, but even 99% without sMRI and ASL.
-This is because of 2 reasons.
-	First: the latter files has many NaN values and currenly I am just deleting the rows -dropna.
-	Second: Neuro file has CDR and MMRE information, that is almost the same as defining wether person has AD or not.
-I should propose a better way of dealing with missing values.(and I will also need to think about how to deal with Neuro file.)
-MinMAxScaler increased the performance of SVM by 10%.
+Run the training.
+Compile and run the program with "python3 main.py -clf X -cl Y -s Z" command-line argument, where X is SVC, LR, DT, Y is HC_MCI, MCI_AD, HC_AD, ALL or MULTI, and Z is 0/1. Flag -clf indicates an available classifier(Support Vector classifier, gradient boosted decision trees, linear regression available), -cl indicates classes to classify (HC vs. MCI, MCI vs. AD, HC vs. AD or multi), and flag -s saves models and templates, models and feature importance if set to 1, does not save if 0.
 
-Using median for NaN values replacement
-Fixed the training. Now using cross_val_predict, which for each element in the input returns the prediction, obtained for that element when it was in the test set(each elem was once in test set).
-Got confustion matrix.
-Accuracies now is between 80-88% for both linear and polynomial classifiers depending on cv.
+To change model training parameters, directories, file paths, features to remove, which datasets to use, hyperparameters in a search space, metrics training score for Bayesian Optimisation, and other settings, modify params.py file.
 
-Gradient Boosted Decision Tree gives precision of 73% at best...
+By default, models and their feature importance are saved in ../Models directory. Template 'Columns.csv' with other produced data files are saved in the ../DataFiles directory. 
 
-Logistic regression with MinMAx scaler, lbfgs solver, cross validation,  and C=3 gives 87% accuracy.
+Predicting the instance.
+Once models are trained and saved, explain.py can be run by following "python3 explain.py -clf X -cl Y -d Z" command-line argument. X is SVC, LR, DT, Y is HC_MCI, MCI_AD, HC_AD, ALL, or MULTI, and Z is a datafile. Flag -clf indicates a classifier(Support Vector classifier, gradient boosted decision trees, linear regression available), -cl indicates classes to classify (HC vs. MCI, MCI vs. AD, HC vs. AD or multi), and -d is a filled template with patients data, for prediction and explanation. A template might also have missing values, and the program would still run.
 
-GridSearchCV for DT
-Using BayesSearchCV for hyperparameters.
-Warning 'UserWarning: The objective has been evaluated at this point before' means that minimizer keeps suggesting points at which the objective has already been evaluated.
-Hence number of iterations should be smaller, or add additional parameters.
+Predictions are saved in the predictions.csv file in the same directory as all source files, and both ELI5 and LIME explanations are stored in the ExplainHTML directory.
 
-There was a bug with suffle. I shuffled X and y separately, and hence labels were missmathced with the correct data row in X.
-BayesSearch gave predictions over 50%, because it selected HParams only for that specific data.
+TO run the program from other location than phase1/src, would require changes in params file.
 
-Fixed Shuffle by zipping and unzipping values, fixed scaling for explainability by appending X wit filldata and then unconcatinating both.
+Phase 2
 
-Fixed the bug with empty fillData when training.
+Run the training.
+To train both MLPC and LeNet "python3 main.py" command line should be executed. The program saves trained models in Models directory, metrics are stored in Metrics/log.csv file and accuracy improvement charts of both training and validation accuracy of MLPC and LeNet are also stored in Metrics/.
 
-Now it works when the data is not in order
-New datasets added, it also works with them.
-Explainability now accepts classification mode in all LR, SVM, DT.
-There was no need in scaling separately XY[3], since getXY scales it.
-Problems: Explainability does not work as intended(inacurate for SVM, LR, and does not make sensible explanation for all models)
+To predict instances, run "python3 predict.py".
+'Final predictions' file would only make sense predicting either multi, single binary or all classifications. Hence, if the user requests two binary and multi, two binary, or two binary and multi classifications, 'final predictions' would fail to output sensible results, and they would be stored in detailed output rather than final. This happens because for maximising the convenient output, the most common class for each individual is predicted. Thus, if case is AD, and user specifies HC vs MCI prediction, outcome cannot be AD, whereas, in all binary classes, output would be AD(HC vs MCI = MCI; AD vs HC = AD, MCI vs AD = AD, by maximum value, AD is predicted).
 
-Made ALL variants in Exaplainer, but they arent tested yet.
+Parameters for selecting which models to train, where to save a log file, images, path to hippodeep package, and intensity projections for training must be specified in params.py file by the user before running the code.
+For predicting instances modify params.py file for a path to save predictions and specify which classifiers and intensity matrices use for prediction. Files for prediction must be in ".nii" format.
 
-Shuffle fucntion works on Explain and Train, The data file is saved once.
-
-penalty C for polynomial kernel in bayessearchcv reduced. As C gets bigger, the model tries to reduce the penalty, and so takes more time to train.
-
-PART 1 TODO
-*Select Specific features, which makes biggest impact on classification | -
-*Do a separate classification on different data sets(tests, sMRI, ALS)  | -
-*Save all files only once when running program(regardless of options)   | o
-*Use other explanations, not only LIME, for example ELI5, or diagrams DT| -
-*Test data processing functions, models(on f score, recall, spec, sens) | -
-*Make as much functions as possible to accept and return same type      | -
-*Handle exceptions                                                      | -
-*AUC and ROC curves in % (saving scores into log)                       | o
-*Make MCI_HC                                                            | o
-*partial volume features(ADNI + Sheffield) and normalise sheffield data | o
-*better to predicct False Positive AD than False Negative in AD         | -
-*Test argv[] input (maybe inside tests)                                 | o
-*If col does not exist in drop list, just skip it, dont exit            | o
-*CHeck if the training porcess and MCI data processing is correct, since
-	it gives 0 recall and 0 TP                                      | -
-*Precision-Recall diagram containing the f-score for each tissue sample?| -
-*Rename HC, AD, MCI to GROUPS instead of classes			| -
-*Make read once in explain         for eli5 and lime                    | -
-*Implement shuffle from sklearn.utils.shuffle to automaticaly shuffle   | -
-
-PART2
-Downloaded ADNI1Screening1.5 data ~1k 3D MRI images
-Extracted Left and Right hippcampal with hippodeep-pytorch-master software
-Software Extracted eTIV, hipL, hipR cols.
-First, I extracted Subject name from it.
-Then, from extracted Subject column I merged it with ROSTER file to obtain the RID
-Then, From ADNI1_Screening_1.5T csv file by Subject I obtained Group(hc,ad,mci), Age, gender.
-Because of duplicate rows (images) I averaged data of a patient (google the reason for adni duplicates).
-
-Feature importance looks great, however, the recall is low for MCI_AD(on every classifier).
-Accuracy for all are pretty high
-
-Merged ADNI_sheff 'fulldata.csv' dataset with grouped, named it F01.csv and now model performance slightl increased.
-
-
-PART 2 TODO
-
-*For evaluation: Dice similarity coefficient(DSC), senisitivity, positive predicted values(PPV), volume error(VE).
-
-Plan Part2
-Read nii data with nibabel library and convert it to numpy array.
-Train CNN (LeNet5) on that numpy array.
-Test it
-
+In both phases, program for either training or predicting/explaining should be run in the src directory, or alternatively, requires changing paths in params.py.

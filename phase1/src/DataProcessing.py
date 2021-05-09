@@ -71,6 +71,9 @@ def getDf():
             merged = pd.concat([merged, mergedSheffield], ignore_index=True)
         elif whichDatasets=="SHEFF":
             merged = mergedSheffield
+        elif whichDatasets!="ADNI":
+            print("Error with data to be processed definition")
+            exit()
 
         # merged = pd.read_csv(PATH_synthetic)
         # merged = pd.read_csv(PATH_F01)
@@ -91,12 +94,13 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
         mcilist=[]
         Y = []
         [mcilist.append((int(ad), int(mci))) for ad, mci in zip(merged[['AD']].values, merged[['MCI']].values)]
+
         for c in mcilist:
             if c[0]==0 and c[1]==0:
                 Y.append(0)
-            elif c[0]==0:
+            elif c[0]==0 and c[1]==1:
                 Y.append(1)
-            elif c[1]==0:
+            elif c[1]==0 and c[0]==1:
                 Y.append(2)
             else:
                 print("DATASET CORRUPTED. (cannot be both MCI and AD as 1)")

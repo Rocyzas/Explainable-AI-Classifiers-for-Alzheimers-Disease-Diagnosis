@@ -24,8 +24,8 @@ saveColTemplate = "../DataFiles/Columns.csv"
 fulldata = "../DataFiles/"
 predictionFile = "Predictions.csv"
 
-# "ADNI", "SHEF", "BOTH"
-whichDatasets="BOTH"
+# "ADNI", "SHEFF", "BOTH"
+whichDatasets="ADNI"
 
 # List the features that should be removed
 listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'Age', 'Gender', 'Height', 'Weight']
@@ -71,13 +71,18 @@ search_spaceSVC = {
     "C":Real(1e-6, 1),
     "class_weight":Categorical(['balanced'])
 }
+
+# search_spaceLR = {
+#     "penalty":Categorical(['l2']),
+#     "solver":Categorical(['saga']),
+#     "multi_class":Categorical(['multinomial']),
+#     "tol":Real(1e-5, 1e-1),
+#     "C":Real(0.1, 10),
+#     "class_weight":Categorical(['balanced'])
+# }
 search_spaceLR = {
-    "penalty":Categorical(['l2']),
-    "solver":Categorical(['saga']),
+    "solver":Categorical(['lbfgs', 'sag']),
     "multi_class":Categorical(['multinomial']),
-    "tol":Real(1e-5, 1e-1),
-    "C":Real(0.1, 10),
-    "class_weight":Categorical(['balanced'])
 }
 
 filterSpecificFeatures = [
