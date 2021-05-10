@@ -25,7 +25,7 @@ def performScaling(X, Y):
         return x_min + nom/denom
 
     for inx in range(len(X)):
-        # X[inx] = X[inx]/max_val
+        X[inx] = X[inx]/max_val
         X[inx] = scale(X[inx], -1, 1)
 
     X = np.expand_dims(X, axis=-1)
@@ -77,6 +77,7 @@ def navigation(currentProj, typeExclude):
     # calling metjods fro class navigation
     # dealing with user input
     iProj=currentProj
+    # reading data into 2D array
     X, Y = data_processing(False, iProj, typeExclude)
     X, Y = performScaling(X, Y)
 
@@ -97,8 +98,8 @@ def navigation(currentProj, typeExclude):
     saveModel(model, "LeNet_"+typeExclude+"_", iProj, False)
 
 
+    # reading data this time into 1D array
     X, Y = data_processing(True, iProj, typeExclude)
-
     # For final testing
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
 

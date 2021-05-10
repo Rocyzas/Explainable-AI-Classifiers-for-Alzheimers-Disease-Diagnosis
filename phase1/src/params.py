@@ -67,7 +67,7 @@ search_spaceDT = {
 }
 search_spaceSVC = {
     "kernel":Categorical(['poly', 'rbf', 'sigmoid', 'linear']), #eli5 works only with linear
-    "degree":Integer(0, 10), #for poly only, ignored by other kernels
+    "degree":Integer(0, 10),
     "gamma":Real(1e-5, 1e-1),
     "coef0":Real(0, 1),
     "tol":Real(1e-5, 1e-1),
@@ -93,8 +93,8 @@ filterSpecificFeatures = [
 'RightAmygdala',
 'LeftHippocampus',
 'RightHippocampus',
-'3rdVentricle',
-'RightLateralVentricle',
-'LeftCerebralWhiteMatter',
-'RightCerebralWhiteMatter'
+# '3rdVentricle',
+# 'RightLateralVentricle',
+# 'LeftCerebralWhiteMatter',
+# 'RightCerebralWhiteMatter'
 ]

@@ -93,9 +93,8 @@ def Dimentionality_Reduction():
 
 
     halfLength = int(len(array_of_2d_images)/2) #since len array_of_2d_images is always even
-    # print("asd", (halfLength))
+
     m=0
-    # for path in [arrayOfPathsL, arrayOfPathsR]:
 
     ''' SECOND METHOD IS TO SPLIT array_of_2d_images into left and right and then save it along with path right and left'''
     for i in range(halfLength):

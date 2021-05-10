@@ -31,7 +31,6 @@ def convertTo2D(projection):
 
         single_2d_image=np.zeros(img[:,:,1].shape)
 
-        # exit()
         for x in range(img[:,:,0][0].shape[0]):
             for y in range(img[:,:,0][0].shape[0]):
                 single_2d_image[x][y] = int(eval("np."+projection)(img[x][y]))

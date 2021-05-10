@@ -64,7 +64,7 @@ class createNNModels(object):
                       metrics="accuracy")
 
         plot_model(model, to_file=FILETOSAVESUMMARY_LENET, show_shapes=True,show_layer_names=True)
-        exit()
+        # exit()
         history = model.fit(self.X_train, self.y_train,
                             batch_size=BATCH_SIZE,
                             epochs=EPOCHS,

@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # typeExclude = ["multi", "AD", "MCI", "CN"]
     typeExclude = ["multi"]
 
-
+    # for each projection and type of classification
     for proj in currentProj:
         for typ in typeExclude:
             navigation(proj, typ)

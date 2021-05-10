@@ -13,17 +13,6 @@ A_df = pd.DataFrame(data={'A': [1, 2, 7],
 
 class TestData(unittest.TestCase):
 
-    # def test_11_clear_data(self):
-    #     # with 'm' in ID
-    #     assert_frame_equal(DataProcessing.clear_data(A_df), A_df_exp)
-    #     assert_frame_equal(DataProcessing.clear_data(A_df_exp), A_df_exp)
-    #
-    #     print("")
-    #
-    # def test_12_getXY(self):
-    #     XY = DataProcessing.getXY(MERGEDA, "HC_AD")
-    #     self.assertEqual(np.array_equal(XY[1], [1,1,1,0,0,0]), True)
-    #     self.assertEqual(np.array_equal(XY[1], [1,1,1,1,0,0]), False)
 
     def test_1_data_processing_multi(self):
         XY = DataProcessing_2D.data_processing()
