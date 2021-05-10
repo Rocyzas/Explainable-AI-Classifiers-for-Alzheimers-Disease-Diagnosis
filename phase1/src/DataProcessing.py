@@ -134,7 +134,8 @@ def getXY(merged, classes, fillData = pd.DataFrame()):
 
     if filterSpecificFeatures!=[]:
         merged = merged.filter(filterSpecificFeatures)
-
+    # print(merged)
+    # exit()
     print(merged.shape)
 
     fillData=fillData.fillna(merged.mean(numeric_only=True))

@@ -1,0 +1,18 @@
+0,Alzheimer's Disease,HC_AD,SVC
+1,Alzheimer's Disease,HC_AD,SVC
+0,Mild Cognitive Impairment,MCI_AD,SVC
+1,Alzheimer's Disease,MCI_AD,SVC
+0,Healthy Case,HC_MCI,SVC
+1,Mild Cognitive Impairment,HC_MCI,SVC
+0,Healthy Case,HC_AD,LogisticRegression
+1,Alzheimer's Disease,HC_AD,LogisticRegression
+0,Mild Cognitive Impairment,MCI_AD,LogisticRegression
+1,Alzheimer's Disease,MCI_AD,LogisticRegression
+0,Healthy Case,HC_MCI,LogisticRegression
+1,Mild Cognitive Impairment,HC_MCI,LogisticRegression
+0,Healthy Case,HC_AD,GradientBoostingClassifier
+1,Alzheimer's Disease,HC_AD,GradientBoostingClassifier
+0,Alzheimer's Disease,MCI_AD,GradientBoostingClassifier
+1,Alzheimer's Disease,MCI_AD,GradientBoostingClassifier
+0,Mild Cognitive Impairment,HC_MCI,GradientBoostingClassifier
+1,Mild Cognitive Impairment,HC_MCI,GradientBoostingClassifier

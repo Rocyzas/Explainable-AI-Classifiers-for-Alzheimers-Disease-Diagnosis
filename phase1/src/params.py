@@ -28,14 +28,15 @@ predictionFile = "Predictions.csv"
 whichDatasets="ADNI"
 
 # List the features that should be removed
-listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'Age', 'Gender', 'Height', 'Weight']
+# listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'Age', 'Gender', 'Height', 'Weight']
+listFeaturesRemove = ['ID', 'MCI', 'AD', 'Exclude', 'Age','Gender', 'Height', 'Weight']
 
 
 # normalised brain volume value (ADNI)
 valueOfBrainVolumeADNI = 1214750.869
 
 # ============= Classifiers =============
-N_ITER = 30
+N_ITER = 35
 CV = 5
 
 # balanced_accu
@@ -44,10 +45,12 @@ CV = 5
 '''
 
 trainingTimesRange = 3
-scoringMetrics = 'accuracy'
+scoringMetrics = 'f1_weighted'
 # scoringMetrics = 'accuracy' #accuracy works for both binary and multi
 
 modelsPath = '../Models/FinalModels_4features/'
+# modelsPath = '../Models/'
+
 repetativeScore = 0
 
 modelsLog = "../Models/log.csv"
@@ -72,18 +75,15 @@ search_spaceSVC = {
     "class_weight":Categorical(['balanced'])
 }
 
-# search_spaceLR = {
-#     "penalty":Categorical(['l2']),
-#     "solver":Categorical(['saga']),
-#     "multi_class":Categorical(['multinomial']),
-#     "tol":Real(1e-5, 1e-1),
-#     "C":Real(0.1, 10),
-#     "class_weight":Categorical(['balanced'])
-# }
 search_spaceLR = {
-    "solver":Categorical(['lbfgs', 'sag']),
+    "penalty":Categorical(['l2']),
+    "solver":Categorical(['lbfgs','saga']),
     "multi_class":Categorical(['multinomial']),
+    "tol":Real(1e-5, 1e-1),
+    "C":Real(0.1, 10),
+    "class_weight":Categorical(['balanced'])
 }
+
 
 filterSpecificFeatures = [
 # 'Brainstem.1',
@@ -93,4 +93,8 @@ filterSpecificFeatures = [
 'RightAmygdala',
 'LeftHippocampus',
 'RightHippocampus',
+'3rdVentricle',
+'RightLateralVentricle',
+'LeftCerebralWhiteMatter',
+'RightCerebralWhiteMatter'
 ]

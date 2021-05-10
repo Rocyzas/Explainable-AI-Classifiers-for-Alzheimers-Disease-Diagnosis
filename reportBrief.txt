@@ -87,7 +87,7 @@ Experiments, Software Implementation - 11 p (how I implemented it and how I will
 
 Evaluation, results - 10 p (how did it work in practise)
 	Explain what each metric represents
-	I need big recall! explain why? because I need FP>FN(or smth)
+	I need big recall! explain why? because I need FP<FN(or smth)
 	Each Model Metrics Table(Accuaracy, Recall, f-score, precision, conf matrix, ROC/AUC, MCC)
 	Plot diagrams(maybe into results section)
 		using different feature sets
